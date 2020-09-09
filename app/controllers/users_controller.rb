@@ -4,14 +4,22 @@ class UsersController < ApplicationController
   end
 
   def create
-    redirect_to '/profile'
-    flash[:success] = 'Welcome Jeff Bezos, you are now registered and logged in!'
+    user = User.new(user_params)
+    if user.save
+      redirect_to '/users/profile'
+      flash[:success] = "Welcome #{params[:name]}, you are now registered and logged in!"
+    else
+      flash[:error] = "afdag"
+    end
+  end
+
+  def show
   end
 
   private
 
   def user_params
-    params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
+    params.permit(:name, :address, :city, :state, :zip, :email, :password_digest)
   end
 
 end
