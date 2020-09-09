@@ -12,8 +12,19 @@ RSpec.describe 'User Registration', type: :feature do
     fill_in :email, with: 'jbezos@amazon.com'
     fill_in :password, with: 'Hunter2'
     fill_in :password_confirmation, with: 'Hunter2'
-
     click_button 'Create User'
     expect(page).to have_content('Welcome Jeff Bezos, you are now registered and logged in!')
+
+    visit '/users/new'
+    fill_in :name, with: 'Bill Gates'
+    fill_in :address, with: '1000 Microsoft Avenue'
+    fill_in :city, with: 'Seattle'
+    fill_in :state, with: 'WA'
+    fill_in :zip, with: '00123'
+    fill_in :email, with: 'jbezos@amazon.com'
+    fill_in :password, with: 'Hunter2'
+    fill_in :password_confirmation, with: 'Hunter2'
+    click_button 'Create User'
+    expect(page).to have_content('Welcome Bill Gates, you are now registered and logged in!')
   end
 end
