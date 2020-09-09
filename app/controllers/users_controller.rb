@@ -10,7 +10,8 @@ class UsersController < ApplicationController
       redirect_to '/users/profile'
       flash[:success] = "Welcome #{params[:name]}, you are now registered and logged in!"
     else
-      flash[:error] = "afdag"
+      flash[:error] = 'User not created, all fields must be complete'
+      redirect_to '/users/new'
     end
   end
 
