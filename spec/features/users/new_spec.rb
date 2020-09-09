@@ -21,7 +21,7 @@ RSpec.describe 'User Registration', type: :feature do
     fill_in :city, with: 'Seattle'
     fill_in :state, with: 'WA'
     fill_in :zip, with: '00123'
-    fill_in :email, with: 'jbezos@amazon.com'
+    fill_in :email, with: 'bill.gates@outlook.com'
     fill_in :password, with: 'Hunter2'
     fill_in :password_confirmation, with: 'Hunter2'
     click_button 'Create User'
