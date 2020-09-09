@@ -33,5 +33,14 @@ RSpec.describe 'Site Navigation' do
       end
 
     end
+
+    it "When I click on the register link in the nav bar" do
+
+      visit '/merchants'
+      within 'nav' do
+        click_link 'Register'
+        expect(current_path).to eq('/users/new')
+      end
+    end
   end
 end
