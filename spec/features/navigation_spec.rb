@@ -43,4 +43,20 @@ RSpec.describe 'Site Navigation' do
       end
     end
   end
+
+  describe "as a merchant employee" do
+    it "When I click on the register link in the nav bar" do
+      visit '/items'
+
+      within 'nav' do
+        expect(page).to have_content("Merchant Dashboard")
+      end
+
+      within 'nav' do
+        click_link 'Merchant Dashboard'
+        expect(current_path).to eq('/merchants')
+      end
+    end
+  end
+
 end
