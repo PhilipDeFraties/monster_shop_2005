@@ -6,6 +6,7 @@ describe 'As a visitor' do
     visit '/'
 
     within 'nav' do
+      expect(page).to have_link('All Items')
       click_link 'All Items'
     end
 
@@ -38,6 +39,7 @@ describe 'As a visitor' do
     visit '/'
 
     within 'nav' do
+      expect(page).to have_link('Register')
       click_link 'Register'
     end
 
@@ -48,6 +50,7 @@ describe 'As a visitor' do
     visit '/'
 
     within 'nav' do
+      expect(page).to have_link('Home')
       click_link 'Home'
     end
 
@@ -58,6 +61,7 @@ describe 'As a visitor' do
     visit '/'
 
     within 'nav' do
+      expect(page).to have_link('Login')
       click_link 'Login'
     end
 
