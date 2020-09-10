@@ -82,7 +82,7 @@ describe 'User Registration' do
                 click_button 'Create User'
 
                 expect(current_path).to eq('/register')
-                
+
                 expect(page).to have_content('Email has already been taken')
 
                 expect(page).to_not have_xpath("//input[@value='jbezos@amazon.com']")
