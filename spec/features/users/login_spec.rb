@@ -9,24 +9,26 @@
 require 'rails_helper'
 
 RSpec.describe "Logging In" do
-  it "can log in as a regular user with valid credentials" do
-    user = User.create(name: 'Jeff Bezos',
-                        address: '123 Main Street',
-                        city: 'Denver',
-                        state: 'CO',
-                        zip: '80123',
-                        email: 'jbezos@amazon.com',
-                        password: 'Hunter2')
+  describe "When I log in as a regular user with valid credentials" do
+    it "I am redirected to my profile page" do
+      user = User.create(name: 'Jeff Bezos',
+                          address: '123 Main Street',
+                          city: 'Denver',
+                          state: 'CO',
+                          zip: '80123',
+                          email: 'jbezos@amazon.com',
+                          password: 'Hunter2')
 
-    visit "/login"
+      visit "/login"
 
-    fill_in :email, with: user.email
-    fill_in :password, with: user.password
+      fill_in :email, with: user.email
+      fill_in :password, with: user.password
 
-    click_on "Log In"
+      click_on "Log In"
 
-    expect(current_path).to eq("/users/#{user.id}")
-    expect(page).to have_content("Welcome, #{user.name}")
+      expect(current_path).to eq("/users/#{user.id}")
+      expect(page).to have_content("Welcome, #{user.name}")
+    end
   end
 
   it "I see a failed log in message if I submit an invalid password or email" do
