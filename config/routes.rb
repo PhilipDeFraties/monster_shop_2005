@@ -38,4 +38,8 @@ Rails.application.routes.draw do
   get "/users/new", to: "users#new"
   post "/users/new", to: "users#create"
   get "/users/:id", to: "users#show"
+
+  namespace :admin do
+    resources only: [:show, :index]
+  end
 end

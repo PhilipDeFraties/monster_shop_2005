@@ -43,4 +43,24 @@ RSpec.describe 'Site Navigation' do
       end
     end
   end
+  describe 'As an Admin' do
+    it "I see the same links as a visitor, plus admin dashboard and all users, minus a link to my shopping cart" do
+
+      admin_1 = User.create(name: 'A',
+                          address: 'B',
+                          city: 'Denver',
+                          state: 'CO',
+                          zip: '12345',
+                          email: 'admin@admin.com',
+                          password: 'Hunter2',
+                          role: 1)
+
+      visit '/items'
+      within 'nav' do
+        expect(page).to have_content('Admin Dashboard')
+        expect(page).to have_content('Users')
+        expect(page).to_not have_content('Cart')
+      end
+    end
+  end
 end

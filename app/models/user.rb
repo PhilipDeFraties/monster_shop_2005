@@ -7,5 +7,6 @@ class User < ApplicationRecord
                         :city,
                         :state,
                         :zip
-
+                        
+  enum role: %w(default admin)
 end
