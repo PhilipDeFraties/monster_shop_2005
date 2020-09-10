@@ -1,46 +1,66 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Site Navigation' do
-  describe 'As a Visitor' do
-    it "I see a nav bar with links to all pages" do
-      visit '/merchants'
+describe 'As a visitor' do
+  it 'I see a link to browse all items for sale' do
+    visit '/'
 
-      within 'nav' do
-        click_link 'All Items'
-      end
-
-      expect(current_path).to eq('/items')
-
-      within 'nav' do
-        click_link 'All Merchants'
-      end
-
-      expect(current_path).to eq('/merchants')
+    within 'nav' do
+      click_link 'All Items'
     end
 
-    it "I can see a cart indicator on all pages" do
-      visit '/merchants'
+    expect(current_path).to eq('/items')
+  end
 
-      within 'nav' do
-        expect(page).to have_content("Cart: 0")
-      end
+  it 'I see a link to see all merchants' do
+    visit '/'
 
-      visit '/items'
-
-      within 'nav' do
-        expect(page).to have_content("Cart: 0")
-      end
-
+    within 'nav' do
+      expect(page).to have_link('All Merchants')
+      click_link 'All Merchants'
     end
 
-    it "When I click on the register link in the nav bar" do
+    expect(current_path).to eq('/merchants')
+  end
 
-      visit '/merchants'
-      within 'nav' do
-        click_link 'Register'
-        expect(current_path).to eq('/users/new')
-      end
+  it 'I see a cart indicator link' do
+    visit '/'
+
+    within 'nav' do
+      expect(page).to have_link('Cart: 0')
+      click_link 'Cart: 0'
     end
+
+    expect(current_path).to eq('/cart')
+  end
+
+  it 'I see a register link' do
+    visit '/'
+
+    within 'nav' do
+      click_link 'Register'
+    end
+
+    expect(current_path).to eq('/register')
+  end
+
+  it 'I see a link to home' do
+    visit '/'
+
+    within 'nav' do
+      click_link 'Home'
+    end
+
+    expect(current_path).to eq('/')
+  end
+
+  it 'I see a link to login' do
+    visit '/'
+
+    within 'nav' do
+      click_link 'Login'
+    end
+
+    expect(current_path).to eq('/login')
   end
 end
