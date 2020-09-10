@@ -26,8 +26,6 @@ RSpec.describe "Logging In" do
     click_on "Log In"
 
     expect(current_path).to eq("/users/#{user.id}")
-
     expect(page).to have_content("Welcome, #{user.name}")
-    expect(page).to have_link("Log out")
   end
 end
