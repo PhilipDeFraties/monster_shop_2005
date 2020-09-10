@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
                 :current_admin?,
                 :current_merchant?
 
+  def index
+
+  end
+
   def cart
     @cart ||= Cart.new(session[:cart] ||= Hash.new(0))
   end

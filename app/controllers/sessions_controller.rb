@@ -11,6 +11,6 @@ class SessionsController < ApplicationController
     else
       flash[:error] = "Sorry, your credentials are bad."
       render :new
-    end  
+    end
   end
 end
