@@ -10,8 +10,10 @@
 
   <body>
     <nav class = "topnav">
+      <%= link_to "Home", "/" %>
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
+      <%= link_to "Login", "/login" %>
       <%= link_to "Register", "/users/new", method: :get %>
       <% if current_admin? %>
         <%= link_to "Admin Dashboard", "/admin" %>
