@@ -9,7 +9,7 @@
 require 'rails_helper'
 
 RSpec.describe "Logging In" do
-  it "can log in with valid credentials" do
+  it "can log in as a regular user with valid credentials" do
     user = User.create(name: 'Jeff Bezos',
                         address: '123 Main Street',
                         city: 'Denver',
@@ -27,5 +27,31 @@ RSpec.describe "Logging In" do
 
     expect(current_path).to eq("/users/#{user.id}")
     expect(page).to have_content("Welcome, #{user.name}")
+  end
+
+  it "I see a failed log in message if I submit an invalid password or email" do
+    user = User.create(name: 'Jeff Bezos',
+                        address: '123 Main Street',
+                        city: 'Denver',
+                        state: 'CO',
+                        zip: '80123',
+                        email: 'jbezos@amazon.com',
+                        password: 'Hunter2')
+
+    visit "/login"
+
+    fill_in :email, with: user.email
+    fill_in :password, with: 'incorrect'
+
+    click_on "Log In"
+
+    expect(current_path).to eq("/login")
+    expect(page).to have_content("Sorry, your credentials are bad.")
+
+    fill_in :email, with: "incorrect@aol.com"
+    fill_in :password, with: user.password
+
+    expect(current_path).to eq("/login")
+    expect(page).to have_content("Sorry, your credentials are bad.")
   end
 end
