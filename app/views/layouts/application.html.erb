@@ -12,9 +12,15 @@
     <nav class = "topnav">
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
-      <%= link_to "Cart: #{cart.total_items}", "/cart" %>
       <%= link_to "Register", "/users/new", method: :get %>
-      <%= link_to "Merchant Dashboard", "/merchants" %>
+      <% if current_admin? %>
+        <%= link_to "Admin Dashboard", "/admin" %>
+        <%= link_to "Users", "/admin/users" %>
+      <% else %>
+        <%= link_to "Merchant Dashboard", "/merchants" %>
+        <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+      <% end %>
+
     </nav>
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">

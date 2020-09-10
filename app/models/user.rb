@@ -8,4 +8,5 @@ class User < ApplicationRecord
                         :state,
                         :zip
 
+  enum role: %w(default merchant admin)
 end
