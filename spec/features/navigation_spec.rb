@@ -141,6 +141,22 @@ describe 'As a visitor' do
 
       visit "/admin"
       expect(page).to have_content("The page you were looking for doesn't exist.")
+
+
+      admin_1 = User.create(name: 'John Admin',
+                          address: '500 Administrator Dr.',
+                          city: 'Arvada',
+                          state: 'CO',
+                          zip: '01011',
+                          email: 'john@admin.com',
+                          password: 'Hunter2',
+                          role: 2)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_1)
+
+
+      visit "/admin"
+      expect(page).to have_content("placeholder for admin dashboard US 5")
     end
   end
 end
