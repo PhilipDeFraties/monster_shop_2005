@@ -14,7 +14,7 @@
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
       <%= link_to "Login", "/login" %>
-      <%= link_to "Register", "/users/new", method: :get %>
+      <%= link_to "Register", "/register", method: :get %>
       <% if current_admin? %>
         <%= link_to "Admin Dashboard", "/admin" %>
         <%= link_to "Users", "/admin/users" %>
