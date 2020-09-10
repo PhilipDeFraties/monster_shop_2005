@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :cart
   helper_method :current_admin?
-
+  helper_method :current_user
+  
   def cart
     @cart ||= Cart.new(session[:cart] ||= Hash.new(0))
   end
@@ -15,5 +16,4 @@ class ApplicationController < ActionController::Base
   def current_admin?
     current_user && current_user.admin?
   end
-
 end
