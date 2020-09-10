@@ -69,7 +69,7 @@ RSpec.describe 'Site Navigation' do
 
       within 'nav' do
         click_link 'Merchant Dashboard'
-        expect(current_path).to eq('/merchant/dashboard')
+        expect(current_path).to eq('/merchant')
       end
     end
   end
