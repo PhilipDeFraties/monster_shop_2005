@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   delete "/merchants/:id", to: "merchants#destroy"
 
   #this route is for US4 and the merchant dashboard
-  get "/merchant", to: "merchant#show"
+#  get "/merchant", to: "dashboard#index"
+  namespace :merchant do
+    get '/dashboard', to: 'dashboard#index'
+  end
 
   get "/items", to: "items#index"
   get "/items/:id", to: "items#show"

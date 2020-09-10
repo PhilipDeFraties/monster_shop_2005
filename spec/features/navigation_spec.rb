@@ -46,7 +46,7 @@ RSpec.describe 'Site Navigation' do
 
 
   describe "as a merchant employee" do
-    it "When I click on the register link in the nav bar" do
+    it "shows the same links as a regular user and a linnk to the merchant dashboard" do
       merchant_1 = User.create(name: 'Bill Gates',
                           address: '1000 Microsoft Drive',
                           city: 'Seattle',
@@ -62,46 +62,14 @@ RSpec.describe 'Site Navigation' do
       visit '/items'
 
       within 'nav' do
-        expect(page).to have_content("Merchant Dashboard")
+        expect(page).to have_link("Merchant Dashboard")
+        expect(page).to have_link("All Merchants")
+        expect(page).to have_link("All Items")
       end
 
       within 'nav' do
         click_link 'Merchant Dashboard'
-        expect(current_path).to eq('/merchant')
-      end
-    end
-  end
-
-
-  describe 'As an Admin' do
-    it "I see the same links as a visitor, plus admin dashboard and all users links, minus a link to a shopping cart" do
-
-      admin_1 = User.create(name: 'John Admin',
-                          address: '123 Main Street',
-                          city: 'Denver',
-                          state: 'CO',
-                          zip: '12345',
-                          email: 'john@admin.com',
-                          password: 'Hunter2',
-                          role: 2)
-
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_1)
-
-      visit '/items'
-      within 'nav' do
-        expect(page).to have_link('Admin Dashboard')
-        expect(page).to have_link('Users')
-        expect(page).to_not have_link('Cart')
-      end
-
-      within 'nav' do
-        click_link 'Admin Dashboard'
-        expect(current_path).to eq('/admin')
-      end
-
-      within 'nav' do
-        click_link 'Users'
-        expect(current_path).to eq('/admin/users')
+        expect(current_path).to eq('/merchant/dashboard')
       end
     end
   end

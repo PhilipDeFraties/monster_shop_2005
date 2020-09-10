@@ -17,7 +17,7 @@
         <%= link_to "Admin Dashboard", "/admin" %>
         <%= link_to "Users", "/admin/users" %>
         <% elsif current_merchant? %>
-        <%= link_to "Merchant Dashboard", "/merchant" %>
+        <%= link_to "Merchant Dashboard", "/merchant/dashboard" %>
         <% else %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
       <% end %>
