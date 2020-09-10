@@ -27,12 +27,23 @@ user_1 = User.create(name: 'Jeff Bezos',
                     state: 'CO',
                     zip: '80123',
                     email: 'jbezos@amazon.com',
-                    password: 'Hunter2')
+                    password: 'Hunter2',
+                    role: 0)
 
-user_2 = User.create(name: 'Bill Gates',
+merchant_1 = User.create(name: 'Bill Gates',
                     address: '1000 Microsoft Drive',
                     city: 'Seattle',
                     state: 'WA',
                     zip: '00123',
                     email: 'bill.gates@outlook.com',
-                    password: '@%)abc123#$.')
+                    password: '@%)abc123#$.',
+                    role: 1)
+
+admin_1 = User.create(name: 'John Admin',
+                    address: '500 Administrator Dr.',
+                    city: 'Arvada',
+                    state: 'CO',
+                    zip: '01011',
+                    email: 'john@admin.com',
+                    password: 'Hunter2',
+                    role: 2)

@@ -67,4 +67,35 @@ describe 'As a visitor' do
 
     expect(current_path).to eq('/login')
   end
+
+
+  describe "as a merchant employee" do
+    it "shows the same links as a regular user and a linnk to the merchant dashboard" do
+      merchant_1 = User.create(name: 'Bill Gates',
+                          address: '1000 Microsoft Drive',
+                          city: 'Seattle',
+                          state: 'WA',
+                          zip: '00123',
+                          email: 'bill.gates@outlook.com',
+                          password: '@%)abc123#$.',
+                          role: 1)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
+
+
+      visit '/items'
+
+      within 'nav' do
+        expect(page).to have_link("Merchant Dashboard")
+        expect(page).to have_link("All Merchants")
+        expect(page).to have_link("All Items")
+      end
+
+      within 'nav' do
+        click_link 'Merchant Dashboard'
+        expect(current_path).to eq('/merchant')
+      end
+    end
+  end
+
 end

@@ -13,6 +13,11 @@ Rails.application.routes.draw do
   patch "/merchants/:id", to: "merchants#update"
   delete "/merchants/:id", to: "merchants#destroy"
 
+  #this route is for US4 and the merchant dashboard
+  namespace :merchant do
+    get '/', to: 'dashboard#index'
+  end
+
   get "/items", to: "items#index"
   get "/items/:id", to: "items#show"
   get "/items/:id/edit", to: "items#edit"
