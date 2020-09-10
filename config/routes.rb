@@ -39,7 +39,6 @@ Rails.application.routes.draw do
   post "/users/new", to: "users#create"
   get "/users/:id", to: "users#show"
 
-  namespace :admin do
-    resources only: [:show, :index]
-  end
+  get '/admin', to: 'admins#dashboard'
+  get '/admin/users', to: 'admins#index'
 end
