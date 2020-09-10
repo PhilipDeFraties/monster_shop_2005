@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'User Registration', type: :feature do
+RSpec.describe 'User Registration' do
   describe "As a user, when I visit the new user page"
     it "I can register a user with a form that has a name, address, city, state, zip, email, and password" do
 
