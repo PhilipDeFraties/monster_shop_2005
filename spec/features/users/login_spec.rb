@@ -31,6 +31,28 @@ RSpec.describe "Logging In" do
     end
   end
 
+  describe "When I log in as a merchant with valid credentials" do
+    it "I am redirected to my merchant dashboard page" do
+      merchant_1 = User.create(name: 'Bill Gates',
+                          address: '1000 Microsoft Drive',
+                          city: 'Seattle',
+                          state: 'WA',
+                          zip: '00123',
+                          email: 'bill.gates@outlook.com',
+                          password: '@%)abc123#$.',
+                          role: 1)
+
+      visit "/login"
+
+      fill_in :email, with: merchant_1.email
+      fill_in :password, with: merchant_1.password
+
+      click_on "Log In"
+
+      expect(current_path).to eq("/merchant")
+    end
+  end
+
   it "I see a failed log in message if I submit an invalid password or email" do
     user = User.create(name: 'Jeff Bezos',
                         address: '123 Main Street',
