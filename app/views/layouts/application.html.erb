@@ -14,21 +14,23 @@
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
       <% if current_user %>
+        <%= "Logged in as #{current_user.name}" %>
         <% if current_admin? %>
           <%= link_to "Admin Dashboard", "/admin" %>
           <%= link_to "Users", "/admin/users" %>
         <% elsif current_merchant? %>
           <%= link_to "Merchant Dashboard", "/merchant" %>
-          <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <% end %>
         <%= link_to "Profile", "/profile" %>
         <%= link_to "Logout", "/logout" %>
+        <% unless current_admin? %>
+          <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+        <% end %>
       <% else %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <%= link_to "Login", "/login" %>
         <%= link_to "Register", "/register", method: :get %>
       <% end %>
-
     </nav>
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">
