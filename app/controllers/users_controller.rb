@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       flash[:success] = "Welcome #{user_params["name"]}, you are now registered and logged in!"
-      render :show
+      redirect_to '/profile'
     else
       flash[:errors] = @user.errors.full_messages
       if @user.errors.details.keys.include?(:email)
