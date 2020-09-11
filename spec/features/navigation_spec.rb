@@ -68,6 +68,22 @@ describe 'When I look at the navigation bar' do
 
       expect(current_path).to eq('/login')
     end
+
+    it "When I try to access any path that begins with /admin, then I see a 404 error" do
+      merchant_1 = User.create(name: 'Bill Gates',
+                          address: '1000 Microsoft Drive',
+                          city: 'Seattle',
+                          state: 'WA',
+                          zip: '00123',
+                          email: 'bill.gates@outlook.com',
+                          password: '@%)abc123#$.',
+                          role: 1)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
+
+      visit "/admin"
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
   end
 
   describe 'as a default user' do
