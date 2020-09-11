@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   get "/users/:id", to: "users#show"
 
   namespace :admin do
-    get '/', to: 'dashboard#index'
+    get '/', to: 'dashboard#show'
+    get '/users', to: 'dashboard#index'
   end
 end

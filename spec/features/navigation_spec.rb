@@ -210,4 +210,43 @@ describe 'When I look at the navigation bar' do
       expect(page).to have_content("placeholder for admin dashboard US 5")
     end
   end
+
+  describe "As an admin" do
+    it "I see the same links as regular user, plus admin dashboard and all users, minus a link to a shopping cart" do
+
+      admin_1 = User.create(name: 'Warren Buffet',
+                          address: '9999 Buffet Street',
+                          city: 'New York',
+                          state: 'NY',
+                          zip: '70007',
+                          email: 'warrenbuffet@gmail.com',
+                          password: 'Password1234',
+                          role: 2)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_1)
+
+      visit '/items'
+      within 'nav' do
+        expect(page).to have_link("Home")
+        expect(page).to have_link("Logout")
+        expect(page).to have_link("Profile")
+        expect(page).to have_link("All Items")
+        expect(page).to have_link("All Merchants")
+        expect(page).to have_link("Admin Dashboard")
+        expect(page).to have_link("Users")
+        expect(page).to_not have_link("Cart: 0")
+        expect(page).to_not have_link("Merchant Dashboard")
+      end
+
+      within 'nav' do
+        click_link 'Admin Dashboard'
+        expect(current_path).to eq('/admin')
+      end
+
+      within 'nav' do
+        click_link 'Users'
+        expect(current_path).to eq('/admin/users')
+      end
+    end
+  end
 end
