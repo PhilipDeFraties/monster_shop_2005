@@ -72,7 +72,14 @@ describe 'When I look at the navigation bar' do
     it "When I try to access any path that begins with /admin, then I see a 404 error" do
 
       visit "/admin"
-      
+
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
+
+    it "When I try to access any path that begins with /merchant, then I see a 404 error" do
+
+      visit "/merchant"
+
       expect(page).to have_content("The page you were looking for doesn't exist.")
     end
   end
@@ -268,7 +275,7 @@ describe 'When I look at the navigation bar' do
                           role: 2)
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_1)
-      
+
       visit '/merchant'
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
