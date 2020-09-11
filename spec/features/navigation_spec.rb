@@ -261,7 +261,7 @@ describe 'When I look at the navigation bar' do
                           role: 2)
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_1)
-      
+
       visit '/merchant'
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
@@ -269,6 +269,28 @@ describe 'When I look at the navigation bar' do
       expect(page).to have_content("The page you were looking for doesn't exist.")
 
     end
+  end
 
+  describe "As a default user" do
+    it "I see a 404 error when I try to access any path that begins with /merchant or /admin" do
+      user_1 = User.create(name: 'Warren Buffet',
+                          address: '9999 Buffet Street',
+                          city: 'New York',
+                          state: 'NY',
+                          zip: '70007',
+                          email: 'warrenbuffet@gmail.com',
+                          password: 'Password1234',
+                          role: 0)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
+
+      visit '/merchant'
+
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+      visit '/admin'
+
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
   end
 end
