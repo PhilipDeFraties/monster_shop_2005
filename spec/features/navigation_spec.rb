@@ -115,7 +115,7 @@ describe 'When I look at the navigation bar' do
   end
 
   describe "as a merchant employee" do
-    it "shows the same links as a regular user and a linnk to the merchant dashboard" do
+    it "shows the same links as a regular user and a link to the merchant dashboard" do
       merchant_1 = User.create(name: 'Bill Gates',
                           address: '1000 Microsoft Drive',
                           city: 'Seattle',
@@ -130,6 +130,43 @@ describe 'When I look at the navigation bar' do
       visit '/items'
 
       within 'nav' do
+        expect(page).to have_link("Home")
+        expect(page).to have_link("Cart: 0")
+        expect(page).to have_link("Logout")
+        expect(page).to have_link("Profile")
+        expect(page).to have_link("Merchant Dashboard")
+        expect(page).to have_link("All Merchants")
+        expect(page).to have_link("All Items")
+        expect(page).to_not have_link("Login")
+        expect(page).to_not have_link("Register")
+
+      end
+
+      within 'nav' do
+        click_link 'Merchant Dashboard'
+        expect(current_path).to eq('/merchant')
+      end
+    end
+  end
+
+
+  describe "as a merchant employee" do
+    it "shows the same links as a regular user and a linnk to the merchant dashboard" do
+      merchant_1 = User.create(name: 'Bill Gates',
+                          address: '1000 Microsoft Drive',
+                          city: 'Seattle',
+                          state: 'WA',
+                          zip: '00123',
+                          email: 'bill.gates@outlook.com',
+                          password: '@%)abc123#$.',
+                          role: 1)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
+
+
+      visit '/items'
+
+      within 'nav' do
         expect(page).to have_link("Merchant Dashboard")
         expect(page).to have_link("All Merchants")
         expect(page).to have_link("All Items")
@@ -140,6 +177,37 @@ describe 'When I look at the navigation bar' do
         expect(current_path).to eq('/merchant')
       end
     end
-  end
 
+    it "When I try to access any path that begins with /admin, then I see a 404 error" do
+      merchant_1 = User.create(name: 'Bill Gates',
+                          address: '1000 Microsoft Drive',
+                          city: 'Seattle',
+                          state: 'WA',
+                          zip: '00123',
+                          email: 'bill.gates@outlook.com',
+                          password: '@%)abc123#$.',
+                          role: 1)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
+
+      visit "/admin"
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+
+      admin_1 = User.create(name: 'John Admin',
+                          address: '500 Administrator Dr.',
+                          city: 'Arvada',
+                          state: 'CO',
+                          zip: '01011',
+                          email: 'john@admin.com',
+                          password: 'Hunter2',
+                          role: 2)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_1)
+
+
+      visit "/admin"
+      expect(page).to have_content("placeholder for admin dashboard US 5")
+    end
+  end
 end
