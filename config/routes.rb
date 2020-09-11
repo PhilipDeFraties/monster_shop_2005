@@ -45,7 +45,7 @@ Rails.application.routes.draw do
 
   get "/register", to: "users#new"
   post "/register", to: "users#create"
-  get "/users/:id", to: "users#show"
+  get "/profile", to: "users#show"
 
   namespace :admin do
     get '/', to: 'dashboard#index'
