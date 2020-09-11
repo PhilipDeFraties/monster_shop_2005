@@ -16,6 +16,7 @@ describe 'User Registration' do
 
       click_button 'Create User'
 
+      expect(current_path).to eq('/profile')
       expect(page).to have_content('Welcome Jeff Bezos, you are now registered and logged in!')
 
       visit '/register'
@@ -30,7 +31,7 @@ describe 'User Registration' do
       fill_in "Password confirmation", with: 'Hunter2'
 
       click_button 'Create User'
-
+      
       expect(page).to have_content('Welcome Bill Gates, you are now registered and logged in!')
     end
 
