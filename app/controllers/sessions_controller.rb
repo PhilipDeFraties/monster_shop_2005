@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       elsif current_admin?
         redirect_to "/admin"
       else
-        redirect_to "/users/#{user.id}"
+        redirect_to "/profile"
       end
     else
       flash[:error] = "Sorry, your credentials are bad."
