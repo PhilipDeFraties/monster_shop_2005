@@ -1,73 +1,118 @@
 
 require 'rails_helper'
 
-describe 'As a visitor' do
-  it 'I see a link to browse all items for sale' do
-    visit '/'
+describe 'When I look at the navigation bar' do
+  describe 'as a visitor' do
+    it 'I see a link to browse all items for sale' do
+      visit '/'
 
-    within 'nav' do
-      expect(page).to have_link('All Items')
-      click_link 'All Items'
+      within 'nav' do
+        expect(page).to have_link('All Items')
+        click_link 'All Items'
+      end
+
+      expect(current_path).to eq('/items')
     end
 
-    expect(current_path).to eq('/items')
-  end
+    it 'I see a link to see all merchants' do
+      visit '/'
 
-  it 'I see a link to see all merchants' do
-    visit '/'
+      within 'nav' do
+        expect(page).to have_link('All Merchants')
+        click_link 'All Merchants'
+      end
 
-    within 'nav' do
-      expect(page).to have_link('All Merchants')
-      click_link 'All Merchants'
+      expect(current_path).to eq('/merchants')
     end
 
-    expect(current_path).to eq('/merchants')
-  end
+    it 'I see a cart indicator link' do
+      visit '/'
 
-  it 'I see a cart indicator link' do
-    visit '/'
+      within 'nav' do
+        expect(page).to have_link('Cart: 0')
+        click_link 'Cart: 0'
+      end
 
-    within 'nav' do
-      expect(page).to have_link('Cart: 0')
-      click_link 'Cart: 0'
+      expect(current_path).to eq('/cart')
     end
 
-    expect(current_path).to eq('/cart')
-  end
+    it 'I see a register link' do
+      visit '/'
 
-  it 'I see a register link' do
-    visit '/'
+      within 'nav' do
+        expect(page).to have_link('Register')
+        click_link 'Register'
+      end
 
-    within 'nav' do
-      expect(page).to have_link('Register')
-      click_link 'Register'
+      expect(current_path).to eq('/register')
     end
 
-    expect(current_path).to eq('/register')
-  end
+    it 'I see a link to home' do
+      visit '/'
 
-  it 'I see a link to home' do
-    visit '/'
+      within 'nav' do
+        expect(page).to have_link('Home')
+        click_link 'Home'
+      end
 
-    within 'nav' do
-      expect(page).to have_link('Home')
-      click_link 'Home'
+      expect(current_path).to eq('/')
     end
 
-    expect(current_path).to eq('/')
+    it 'I see a link to login' do
+      visit '/'
+
+      within 'nav' do
+        expect(page).to have_link('Login')
+        click_link 'Login'
+      end
+
+      expect(current_path).to eq('/login')
+    end
   end
 
-  it 'I see a link to login' do
-    visit '/'
+  describe 'as a default user' do
+    before :each do
+      user_1 = User.create(
+        name: 'Bill Gates',
+        address: '1000 Microsoft Drive',
+        city: 'Seattle',
+        state: 'WA',
+        zip: '00123',
+        email: 'bill.gates@outlook.com',
+        password: '@%)abc123#$.',
+        role: 0
+      )
 
-    within 'nav' do
-      expect(page).to have_link('Login')
-      click_link 'Login'
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
+    end
+    it 'I see the home, items, merchants, cart, profile, and logout links' do
+      visit '/'
+
+      within 'nav' do
+        expect(page).to have_link('Home')
+        expect(page).to have_link('All Items')
+        expect(page).to have_link('All Merchants')
+        expect(page).to have_link('Cart: 0')
+        expect(page).to have_link('Profile')
+        expect(page).to have_link('Logout')
+      end
     end
 
-    expect(current_path).to eq('/login')
-  end
+    it 'I do not see a link to log in or register' do
+      visit '/'
 
+      within 'nav' do
+        expect(page).to_not have_link('Login')
+        expect(page).to_not have_link('Register')
+      end
+    end
+
+    it "I also see a logged in text with the user's name" do
+      visit '/'
+
+      expect(page).to have_content('Logged in as Bill Gates')
+    end
+  end
 
   describe "as a merchant employee" do
     it "shows the same links as a regular user and a linnk to the merchant dashboard" do
@@ -81,7 +126,6 @@ describe 'As a visitor' do
                           role: 1)
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
-
 
       visit '/items'
 
