@@ -70,7 +70,7 @@ describe 'As a visitor' do
 
 
   describe "as a merchant employee" do
-    it "shows the same links as a regular user and a linnk to the merchant dashboard" do
+    it "shows the same links as a regular user and a link to the merchant dashboard" do
       merchant_1 = User.create(name: 'Bill Gates',
                           address: '1000 Microsoft Drive',
                           city: 'Seattle',
@@ -86,9 +86,16 @@ describe 'As a visitor' do
       visit '/items'
 
       within 'nav' do
+        expect(page).to have_link("Home")
+        expect(page).to have_link("Cart: 0")
+        expect(page).to have_link("Logout")
+        expect(page).to have_link("Profile")
         expect(page).to have_link("Merchant Dashboard")
         expect(page).to have_link("All Merchants")
         expect(page).to have_link("All Items")
+        expect(page).to_not have_link("Login")
+        expect(page).to_not have_link("Register")
+
       end
 
       within 'nav' do
