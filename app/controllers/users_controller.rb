@@ -8,8 +8,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to "/users/#{@user.id}"
       flash[:success] = "Welcome #{user_params["name"]}, you are now registered and logged in!"
+      render :show
     else
       flash[:errors] = @user.errors.full_messages
       if @user.errors.details.keys.include?(:email)
