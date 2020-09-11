@@ -10,20 +10,10 @@
 
   <body>
     <nav class = "topnav">
-      <%= link_to "Home", "/" %>
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
-      <%= link_to "Login", "/login" %>
-      <%= link_to "Register", "/register", method: :get %>
-      <% if current_admin? %>
-        <%= link_to "Admin Dashboard", "/admin" %>
-        <%= link_to "Users", "/admin/users" %>
-      <% elsif current_merchant? %>
-        <%= link_to "Merchant Dashboard", "/merchant" %>
-      <% else %>
-        <%= link_to "Cart: #{cart.total_items}", "/cart" %>
-      <% end %>
-
+      <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+      <%= link_to "Register", "/users/new", method: :get %>
     </nav>
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">
