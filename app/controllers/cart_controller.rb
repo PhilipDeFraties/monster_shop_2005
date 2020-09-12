@@ -1,7 +1,7 @@
 class CartController < ApplicationController
-  before_action :require_admin
+  before_action :exclude_admin
 
-  def require_admin
+  def exclude_admin
     render file: "/public/404" if current_admin?
   end
 
