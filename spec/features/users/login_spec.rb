@@ -136,6 +136,7 @@ RSpec.describe "Logging In" do
         click_on "Log In"
         visit "/login"
         expect(current_path).to eq("/profile")
+        expect(page).to have_content("You are already logged in")
       end
     end
 
@@ -157,6 +158,7 @@ RSpec.describe "Logging In" do
         click_on "Log In"
         visit "/login"
         expect(current_path).to eq("/merchant")
+        expect(page).to have_content("You are already logged in")
       end
     end
 
@@ -177,6 +179,8 @@ RSpec.describe "Logging In" do
       click_on "Log In"
       visit "/login"
       expect(current_path).to eq("/admin")
+      expect(page).to have_content("You are already logged in")
+      save_and_open_page
       end
     end
   end

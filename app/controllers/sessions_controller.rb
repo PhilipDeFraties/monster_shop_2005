@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   def new
     if current_user
+      flash[:error] = "You are already logged in"
       if current_merchant?
         redirect_to "/merchant"
       elsif current_admin?
@@ -30,9 +31,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-  session.delete(:user_id)
-  session.delete(:cart)
-  flash[:success] = "You have been logged out, goodbye"
-  redirect_to "/"
+    session.delete(:user_id)
+    session.delete(:cart)
+    flash[:success] = "You have been logged out, goodbye"
+    redirect_to "/"
   end
 end
