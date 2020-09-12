@@ -172,7 +172,7 @@ describe 'When I look at the navigation bar' do
 
 
   describe "as a merchant employee" do
-    it "shows the same links as a regular user and a linnk to the merchant dashboard" do
+    it "shows the same links as a regular user and a link to the merchant dashboard" do
       merchant_1 = User.create(name: 'Bill Gates',
                           address: '1000 Microsoft Drive',
                           city: 'Seattle',
