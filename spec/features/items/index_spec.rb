@@ -52,73 +52,124 @@ RSpec.describe "Items Index Page" do
         expect(page).to_not have_css("img[src*='#{@dog_bone.image}']")
     end
 
-    describe "As any kind of user on the system" do
-      it "From the items page, I can click on an item's image and be directed to it's show page" do
-
-        visit "/items"
-        find(:xpath, "//a/img[@alt='#{@tire.name}-image']/..").click
-        expect(current_path).to eq("/items/#{@tire.id}")
+    describe 'when I am logged in' do
+      before :each do
+        @default_1 = User.create!(
+          name: 'Warren Buffet',
+          address: '9999 Buffet Street',
+          city: 'New York',
+          state: 'NY',
+          zip: '70007',
+          email: 'warrenbuffet@gmail.com',
+          password: 'Password1234',
+          role: 0
+        )
+        @merchant_1 = User.create!(
+          name: 'Warren Buffet',
+          address: '9999 Buffet Street',
+          city: 'New York',
+          state: 'NY',
+          zip: '70007',
+          email: 'allucaneatbuffet@gmail.com',
+          password: 'Password1234',
+          role: 1
+        )
+        @admin_1 = User.create!(
+          name: 'Warren Buffet',
+          address: '9999 Buffet Street',
+          city: 'New York',
+          state: 'NY',
+          zip: '70007',
+          email: 'superbuffet@gmail.com',
+          password: 'Password1234',
+          role: 2
+        )
+        @users = [@default_1, @merchant_1, @admin_1]
       end
 
-      it "As an admin, I can visit the items catalog, /items, and see only active items" do
+      describe 'as any type of user' do
+        it 'I can visit the items catalog, /items, and see only active items' do
+          @users.each do |user|
+            allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-        admin_1 = User.create(name: 'Warren Buffet',
-                            address: '9999 Buffet Street',
-                            city: 'New York',
-                            state: 'NY',
-                            zip: '70007',
-                            email: 'warrenbuffet@gmail.com',
-                            password: 'Password1234',
-                            role: 2)
+            visit "/items"
 
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_1)
+            expect(page).to have_link(@pull_toy.name)
+            expect(page).to have_link(@tire.name)
+            expect(page).to_not have_link(@dog_bone.name)
+          end
+        end
 
-        visit "/items"
+        it "From the items page, I can click on an item's image and be directed to it's show page" do
+          @users.each do |user|
+            allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-        expect(page).to have_link(@pull_toy.name)
-        expect(page).to have_link(@tire.name)
-        expect(page).to_not have_link(@dog_bone.name)
+            visit "/items"
+            find(:xpath, "//a/img[@alt='#{@tire.name}-image']/..").click
+            expect(current_path).to eq("/items/#{@tire.id}")
+          end
+        end
       end
 
-      it "As a default user, I can visit the items catalog, /items, and see only active items" do
-
-        default_1 = User.create(name: 'Warren Buffet',
-                            address: '9999 Buffet Street',
-                            city: 'New York',
-                            state: 'NY',
-                            zip: '70007',
-                            email: 'warrenbuffet@gmail.com',
-                            password: 'Password1234',
-                            role: 0)
-
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_1)
-
-        visit "/items"
-
-        expect(page).to have_link(@pull_toy.name)
-        expect(page).to have_link(@tire.name)
-        expect(page).to_not have_link(@dog_bone.name)
-      end
-
-      it "As a merchant user, I can visit the items catalog, /items, and see only active items" do
-
-        merchant_1 = User.create(name: 'Warren Buffet',
-                            address: '9999 Buffet Street',
-                            city: 'New York',
-                            state: 'NY',
-                            zip: '70007',
-                            email: 'warrenbuffet@gmail.com',
-                            password: 'Password1234',
-                            role: 1)
-
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
-
-        visit "/items"
-
-        expect(page).to have_link(@pull_toy.name)
-        expect(page).to have_link(@tire.name)
-        expect(page).to_not have_link(@dog_bone.name)
-      end
+      # describe 'as a default user' do
+      #   before :each do
+      #     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@default_1)
+      #   end
+      #
+      #   it 'I can visit the items catalog, /items, and see only active items' do
+      #     visit "/items"
+      #
+      #     expect(page).to have_link(@pull_toy.name)
+      #     expect(page).to have_link(@tire.name)
+      #     expect(page).to_not have_link(@dog_bone.name)
+      #   end
+      #
+      #   it "From the items page, I can click on an item's image and be directed to it's show page" do
+      #     visit "/items"
+      #     find(:xpath, "//a/img[@alt='#{@tire.name}-image']/..").click
+      #     expect(current_path).to eq("/items/#{@tire.id}")
+      #   end
+      # end
+      #
+      # describe 'as an admin' do
+      #   before :each do
+      #     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin_1)
+      #   end
+      #
+      #   it "I can visit the items catalog, /items, and see only active items" do
+      #     visit "/items"
+      #
+      #     expect(page).to have_link(@pull_toy.name)
+      #     expect(page).to have_link(@tire.name)
+      #     expect(page).to_not have_link(@dog_bone.name)
+      #   end
+      #
+      #   it "From the items page, I can click on an item's image and be directed to it's show page" do
+      #     visit "/items"
+      #     find(:xpath, "//a/img[@alt='#{@tire.name}-image']/..").click
+      #     expect(current_path).to eq("/items/#{@tire.id}")
+      #   end
+      # end
+      #
+      # describe 'as a merchant' do
+      #   before :each do
+      #     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_1)
+      #   end
+      #
+      #   it 'I can visit the items catalog, /items, and see only active items' do
+      #     visit "/items"
+      #
+      #     expect(page).to have_link(@pull_toy.name)
+      #     expect(page).to have_link(@tire.name)
+      #     expect(page).to_not have_link(@dog_bone.name)
+      #   end
+      #
+      #   it "From the items page, I can click on an item's image and be directed to it's show page" do
+      #     visit "/items"
+      #     find(:xpath, "//a/img[@alt='#{@tire.name}-image']/..").click
+      #     expect(current_path).to eq("/items/#{@tire.id}")
+      #   end
+      # end
     end
   end
 end
