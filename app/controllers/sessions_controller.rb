@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
   def destroy
   session.delete(:user_id)
   session.delete(:cart)
-  redirect_to "/"
   flash[:success] = "You have been logged out, goodbye"
+  redirect_to "/"
   end
 end
