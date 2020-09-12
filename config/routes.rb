@@ -47,7 +47,8 @@ Rails.application.routes.draw do
 
   get "/register", to: "users#new"
   get "/profile", to: "users#show"
-  resources :users, except: %i[new show]
+  post '/users', to: 'users#create'
+  # resources :users, except: %i[new show]
 
   namespace :admin do
     get '/', to: 'dashboard#show'
