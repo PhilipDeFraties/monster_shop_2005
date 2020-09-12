@@ -49,6 +49,8 @@ Rails.application.routes.draw do
   get "/register", to: "users#new"
   get "/profile", to: "users#show"
   post '/users', to: 'users#create'
+  get "/profile/:user_id/edit", to: "users#edit"
+
   # resources :users, except: %i[new show]
 
   namespace :admin do
@@ -57,4 +59,5 @@ Rails.application.routes.draw do
   end
 
   get "/profile", to: "users#show"
+
 end
