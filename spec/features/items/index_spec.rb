@@ -53,7 +53,14 @@ RSpec.describe "Items Index Page" do
     end
 
     describe "As any kind of user on the system" do
-      it "As an admin, I can visit the items catalog, /items, and see all active items" do
+      it "From the items page, I can click on an item's image and be directed to it's show page" do
+
+        visit "/items"
+        find(:xpath, "//a/img[@alt='#{@tire.name}-image']/..").click
+        expect(current_path).to eq("/items/#{@tire.id}")
+      end
+
+      it "As an admin, I can visit the items catalog, /items, and see only active items" do
 
         admin_1 = User.create(name: 'Warren Buffet',
                             address: '9999 Buffet Street',
@@ -73,7 +80,7 @@ RSpec.describe "Items Index Page" do
         expect(page).to_not have_link(@dog_bone.name)
       end
 
-      it "As a default user, I can visit the items catalog, /items, and see all active items" do
+      it "As a default user, I can visit the items catalog, /items, and see only active items" do
 
         default_1 = User.create(name: 'Warren Buffet',
                             address: '9999 Buffet Street',
@@ -93,7 +100,7 @@ RSpec.describe "Items Index Page" do
         expect(page).to_not have_link(@dog_bone.name)
       end
 
-      it "As a merchant user, I can visit the items catalog, /items, and see all active items" do
+      it "As a merchant user, I can visit the items catalog, /items, and see only active items" do
 
         merchant_1 = User.create(name: 'Warren Buffet',
                             address: '9999 Buffet Street',
