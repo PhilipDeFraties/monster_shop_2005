@@ -1,12 +1,12 @@
 class SessionsController < ApplicationController
   def new
-    if session[:user_id] != nil
-      if current_user.role == "default"
-        redirect_to "/profile"
-      elsif current_user.role == "merchant"
+    if current_user
+      if current_merchant?
         redirect_to "/merchant"
-      elsif current_user.role == "admin"
+      elsif current_admin?
         redirect_to "/admin"
+      else
+        redirect_to "/profile"
       end
     end
   end
