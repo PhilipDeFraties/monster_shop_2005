@@ -15,13 +15,16 @@ RSpec.describe "Logging In" do
           role: 0
         )
 
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
+
         visit '/profile'
         expect(current_path).to eq('/profile')
         expect(page).to have_link("Edit Profile")
+        click_on("Edit Profile")
         #which of the following is better?
         #expect(current_path).to eq("/users/edit")
         #check out how edit merchant is setup. it'll be a carbon copy
-        expect(current_path).to eq("/users/#{@user_1.id}/edit")
+        expect(current_path).to eq("/profile/#{@user_1.id}/edit")
 
 
         expect(page).to have_content("Bill Gates")
