@@ -51,4 +51,6 @@ Rails.application.routes.draw do
     get '/', to: 'dashboard#show'
     get '/users', to: 'dashboard#index'
   end
+
+  get "/profile", to: "users#show"
 end
