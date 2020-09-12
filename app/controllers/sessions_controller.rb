@@ -33,5 +33,6 @@ class SessionsController < ApplicationController
   session.delete(:user_id)
   session.delete(:cart)
   redirect_to "/"
+  flash[:success] = "You have been logged out, goodbye"
   end
 end

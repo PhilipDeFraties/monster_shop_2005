@@ -24,14 +24,14 @@ RSpec.describe "Logging Out" do
       click_on "Add To Cart"
 
       # within 'nav' do
-      #   expect(page).to have_link('Cart')
+      #   expect(page).to have_link('Cart: 1')
       # end
       # save_and_open_page
 
-      within 'nav' do
+      # within 'nav' do
         expect(page).to have_link('Logout')
         click_on "/logout"
-      end
+      # end
 
       expect(current_path).to eq("/")
       expect(page).to have_content("You have been logged out")
