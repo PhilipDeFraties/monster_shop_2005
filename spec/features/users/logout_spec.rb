@@ -12,16 +12,30 @@ RSpec.describe "Logging Out" do
                           email: 'jbezos@amazon.com',
                           password: 'Hunter2',
                           role: 0)
-
+      bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
 
       visit "/login"
       fill_in :email, with: user_1.email
       fill_in :password, with: user_1.password
       click_on "Log In"
-      visit "/logout"
+
+      visit "/items/#{tire.id}"
+      click_on "Add To Cart"
+
+      # within 'nav' do
+      #   expect(page).to have_link('Cart')
+      # end
+      # save_and_open_page
+
+      within 'nav' do
+        expect(page).to have_link('Logout')
+        click_on "/logout"
+      end
+
       expect(current_path).to eq("/")
       expect(page).to have_content("You have been logged out")
-    #  expect(page).to have_content("Cart:0")
+      expect(page).to have_content("Cart:0")
     end
   end
 end
