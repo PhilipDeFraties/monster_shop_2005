@@ -15,12 +15,12 @@ RSpec.describe 'user show page', type: :feature do
                           email: 'jbezos@amazon.com',
                           password: 'Hunter2',
                           role: 0)
-      end
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    end
 
     describe "When I visit my profile page" do
       it "I see all of my profile data on the page except my password" do
-
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
         visit '/profile'
 
@@ -31,6 +31,12 @@ RSpec.describe 'user show page', type: :feature do
         expect(page).to have_content(@user.state)
         expect(page).to have_content(@user.zip)
         expect(page).to have_content(@user.email)
+      end
+
+      it "I see a link to edit my profile data" do
+        visit '/profile'
+
+        expect(page).to have_link('Edit Profile')
       end
     end
   end
