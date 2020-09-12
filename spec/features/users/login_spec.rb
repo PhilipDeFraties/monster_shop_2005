@@ -77,7 +77,7 @@ RSpec.describe "Logging In" do
     end
   end
 
-  it "I see a failed log in message if I submit an invalid password or email" do
+  it "I see a failed log in message if I submit an invalid password" do
     user = User.create(name: 'Jeff Bezos',
                         address: '123 Main Street',
                         city: 'Denver',
@@ -95,9 +95,23 @@ RSpec.describe "Logging In" do
 
     expect(current_path).to eq("/login")
     expect(page).to have_content("Sorry, your credentials are bad.")
+  end
+
+  it "I see a failed log in message if I submit an invalid email" do
+    user = User.create(name: 'Jeff Bezos',
+                        address: '123 Main Street',
+                        city: 'Denver',
+                        state: 'CO',
+                        zip: '80123',
+                        email: 'jbezos@amazon.com',
+                        password: 'Hunter2')
+
+    visit "/login"
 
     fill_in :email, with: "incorrect@aol.com"
     fill_in :password, with: user.password
+
+    click_on "Log In"
 
     expect(current_path).to eq("/login")
     expect(page).to have_content("Sorry, your credentials are bad.")
