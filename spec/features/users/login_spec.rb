@@ -102,4 +102,71 @@ RSpec.describe "Logging In" do
     expect(current_path).to eq("/login")
     expect(page).to have_content("Sorry, your credentials are bad.")
   end
+
+  describe "As a registered user, merchant, or admin, when I visit the login path" do
+    describe "As a regular user" do
+      it "rediects to my profile page" do
+        user_1 = User.create(name: 'Jeff Bezos',
+                            address: '123 Main Street',
+                            city: 'Denver',
+                            state: 'CO',
+                            zip: '80123',
+                            email: 'jbezos@amazon.com',
+                            password: 'Hunter2',
+                            role: 0)
+
+
+        visit "/login"
+        fill_in :email, with: user_1.email
+        fill_in :password, with: user_1.password
+        click_on "Log In"
+        visit "/login"
+        expect(current_path).to eq("/profile")
+      end
+    end
+
+    describe "As a merchant user" do
+      it "rediects to my merchant dashboard" do
+        merchant_1 = User.create(name: 'Bill Gates',
+                            address: '1000 Microsoft Drive',
+                            city: 'Seattle',
+                            state: 'WA',
+                            zip: '00123',
+                            email: 'bill.gates@outlook.com',
+                            password: '@%)abc123#$.',
+                            role: 1)
+
+
+        visit "/login"
+        fill_in :email, with: merchant_1.email
+        fill_in :password, with: merchant_1.password
+        click_on "Log In"
+        visit "/login"
+        expect(current_path).to eq("/merchant")
+      end
+    end
+
+    describe "As a admin user" do
+      it "rediects to my admin dashboard" do
+        admin_1 = User.create(name: 'John Admin',
+                            address: '500 Administrator Dr.',
+                            city: 'Arvada',
+                            state: 'CO',
+                            zip: '01011',
+                            email: 'john@admin.com',
+                            password: 'Hunter2',
+                            role: 2)
+
+      visit "/login"
+      fill_in :email, with: admin_1.email
+      fill_in :password, with: admin_1.password
+      click_on "Log In"
+      visit "/login"
+      expect(current_path).to eq("/admin")
+      end
+    end
+
+  end
+
+
 end

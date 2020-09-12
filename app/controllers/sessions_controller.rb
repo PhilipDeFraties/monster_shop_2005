@@ -1,5 +1,14 @@
 class SessionsController < ApplicationController
   def new
+    if current_user
+      if current_merchant?
+        redirect_to "/merchant"
+      elsif current_admin?
+        redirect_to "/admin"
+      else
+        redirect_to "/profile"
+      end
+    end
   end
 
    def create
