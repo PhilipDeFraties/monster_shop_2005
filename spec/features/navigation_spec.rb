@@ -68,6 +68,27 @@ describe 'When I look at the navigation bar' do
 
       expect(current_path).to eq('/login')
     end
+
+    it "When I try to access any path that begins with /admin, then I see a 404 error" do
+
+      visit "/admin"
+
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
+
+    it "When I try to access any path that begins with /merchant, then I see a 404 error" do
+
+      visit "/merchant"
+
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
+
+    it "When I try to access any path that begins with /profile, then I see a 404 error" do
+
+      visit "/profile"
+
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
   end
 
   describe 'as a default user' do
@@ -151,7 +172,7 @@ describe 'When I look at the navigation bar' do
 
 
   describe "as a merchant employee" do
-    it "shows the same links as a regular user and a linnk to the merchant dashboard" do
+    it "shows the same links as a regular user and a link to the merchant dashboard" do
       merchant_1 = User.create(name: 'Bill Gates',
                           address: '1000 Microsoft Drive',
                           city: 'Seattle',

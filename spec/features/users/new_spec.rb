@@ -47,7 +47,7 @@ describe 'User Registration' do
 
       click_button 'Create User'
 
-      expect(current_path).to eq('/register')
+      expect(current_path).to eq('/users')
 
       expect(page).to have_content("Name can't be blank")
     end
@@ -81,7 +81,7 @@ describe 'User Registration' do
 
                 click_button 'Create User'
 
-                expect(current_path).to eq('/register')
+                expect(current_path).to eq('/users')
 
                 expect(page).to have_content('Email has already been taken')
 
