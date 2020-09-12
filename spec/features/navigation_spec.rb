@@ -82,6 +82,13 @@ describe 'When I look at the navigation bar' do
 
       expect(page).to have_content("The page you were looking for doesn't exist.")
     end
+
+    it "When I try to access any path that begins with /profile, then I see a 404 error" do
+
+      visit "/profile"
+
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
   end
 
   describe 'as a default user' do
