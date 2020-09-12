@@ -110,66 +110,6 @@ RSpec.describe "Items Index Page" do
           end
         end
       end
-
-      # describe 'as a default user' do
-      #   before :each do
-      #     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@default_1)
-      #   end
-      #
-      #   it 'I can visit the items catalog, /items, and see only active items' do
-      #     visit "/items"
-      #
-      #     expect(page).to have_link(@pull_toy.name)
-      #     expect(page).to have_link(@tire.name)
-      #     expect(page).to_not have_link(@dog_bone.name)
-      #   end
-      #
-      #   it "From the items page, I can click on an item's image and be directed to it's show page" do
-      #     visit "/items"
-      #     find(:xpath, "//a/img[@alt='#{@tire.name}-image']/..").click
-      #     expect(current_path).to eq("/items/#{@tire.id}")
-      #   end
-      # end
-      #
-      # describe 'as an admin' do
-      #   before :each do
-      #     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin_1)
-      #   end
-      #
-      #   it "I can visit the items catalog, /items, and see only active items" do
-      #     visit "/items"
-      #
-      #     expect(page).to have_link(@pull_toy.name)
-      #     expect(page).to have_link(@tire.name)
-      #     expect(page).to_not have_link(@dog_bone.name)
-      #   end
-      #
-      #   it "From the items page, I can click on an item's image and be directed to it's show page" do
-      #     visit "/items"
-      #     find(:xpath, "//a/img[@alt='#{@tire.name}-image']/..").click
-      #     expect(current_path).to eq("/items/#{@tire.id}")
-      #   end
-      # end
-      #
-      # describe 'as a merchant' do
-      #   before :each do
-      #     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_1)
-      #   end
-      #
-      #   it 'I can visit the items catalog, /items, and see only active items' do
-      #     visit "/items"
-      #
-      #     expect(page).to have_link(@pull_toy.name)
-      #     expect(page).to have_link(@tire.name)
-      #     expect(page).to_not have_link(@dog_bone.name)
-      #   end
-      #
-      #   it "From the items page, I can click on an item's image and be directed to it's show page" do
-      #     visit "/items"
-      #     find(:xpath, "//a/img[@alt='#{@tire.name}-image']/..").click
-      #     expect(current_path).to eq("/items/#{@tire.id}")
-      #   end
-      # end
     end
   end
 end
