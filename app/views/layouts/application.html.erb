@@ -22,7 +22,7 @@
           <%= link_to "Merchant Dashboard", "/merchant" %>
         <% end %>
         <%= link_to "Profile", "/profile" %>
-        <%= link_to "Logout", "/logout" %>
+        <%= link_to "Logout", "/logout", method: :delete %>
         <% unless current_admin? %>
           <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <% end %>

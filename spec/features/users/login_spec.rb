@@ -179,8 +179,5 @@ RSpec.describe "Logging In" do
       expect(current_path).to eq("/admin")
       end
     end
-
   end
-
-
 end
