@@ -9,6 +9,7 @@
     <li>Email: <%= current_user.email %></li>
     <%= link_to "Edit Profile", "/profile/#{current_user.id}/edit" %>
     <br>
-    <%= link_to "Edit Password", editpassword_user_path(current_user.id) %>
+    <%# link_to "Edit Password", editpassword_user_path(current_user.id) %>
+    <%= link_to "Edit Password", "/profile/#{current_user.id}/editpassword" %>
 
 </article>

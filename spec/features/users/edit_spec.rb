@@ -14,18 +14,17 @@ RSpec.describe "Logging In" do
           password: '@%)abc123#$.',
           role: 0
         )
-      end
-      it "When I click on the link to edit my profile data I see a form like the registration page" do
-
         visit '/login'
         fill_in :email, with: @user_1.email
         fill_in :password, with: @user_1.password
         click_on "Log In"
+      end
+
+      it "When I click on the link to edit my profile data I see a form like the registration page" do
 
         expect(current_path).to eq('/profile')
         expect(page).to have_link("Edit Profile")
         click_on("Edit Profile")
-
 
         expect(current_path).to eq("/profile/#{@user_1.id}/edit")
 
@@ -45,16 +44,58 @@ RSpec.describe "Logging In" do
         expect(page).to have_content('123 Main Street')
       end
 
-      it "has a link to update my password" do
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
 
-        visit '/profile'
-        expect(page).to have_link("Edit Password")
-        click_link "Edit Password"
-        expect(current_path).to eq("/users/#{@user_1.id}/editpassword")
+      it "When I leave a feild blank I receive an error" do
 
-        expect(page).to have_field(:password, with: nil)
-        #expect(page).to have_field(:password_confirmation, with: nil)
+        click_on("Edit Profile")
+
+        fill_in "Address", with: ""
+
+        click_button "Update Profile"
+        expect(current_path).to eq("/profile/#{@user_1.id}/edit")
+
+        expect(page).to have_content("Address can't be blank")
+
+      end
+
+      # it "when I click on the link to edit my password I see a field for password and confirmation" do
+
+      #   expect(current_path).to eq('/profile')
+      #   expect(page).to have_link("Edit Password")
+      #   click_on("Edit Password")
+      #
+      #   expect(current_path).to eq("/profile/#{@user_1.id}/editpassword")
+      #   save_and_open_page
+      #
+      #
+      #   expect(page).to have_field(:password)
+      #   expect(page).to have_field(:password_confirmation)
+      #   #expect(page).to_not have_field(:password, with: "#{@user_1.password}")
+      #
+      #   #expect(page).to have_field(:password_confirmation, with: "")
+      #
+      #
+      # end
+
+      it "requires a unique email address" do
+        user_2 = User.create(
+          name: 'Other Gates',
+          address: '1000 Microsoft Drive',
+          city: 'Seattle',
+          state: 'WA',
+          zip: '00123',
+          email: 'other.gates@outlook.com',
+          password: '@%)abc123#$.',
+          role: 0
+        )
+
+        click_on("Edit Profile")
+        fill_in "Email", with: "other.gates@outlook.com"
+
+        click_button "Update Profile"
+
+        expect(current_path).to eq("/profile/#{@user_1.id}/edit")
+        expect(page).to have_content("Email has already been taken")
 
       end
 

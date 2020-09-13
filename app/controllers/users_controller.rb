@@ -43,21 +43,22 @@ class UsersController < ApplicationController
   end
 
   # def editpassword
-  #
-  #   @user = User.find(params[:user_id])
+  #   @user = User.find(params[:id])
   # end
   #update_password
-  def edit_password
+  def update_password
     @user = User.find(params[:user_id])
     @user.update(user_password_params)
+    binding.pry
     if @user.save
-      flash[:success] = "#{user_password_params["name"]}, your profile has been updated!"
-      redirect_to "/profile"
+      flash[:success] = "#{current_user.name}, your password has been updated!"
+      redirect_to "/"
     else
       flash[:errors] = "Passwords must match"
       render :edit
     end
   end
+
 
 
   private
