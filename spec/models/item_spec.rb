@@ -19,7 +19,7 @@ describe Item, type: :model do
 
   describe "instance methods" do
     before(:each) do
-      @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      @bike_shop = create(:merchant)
       @chain = @bike_shop.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
 
       @review_1 = @chain.reviews.create(title: "Great place!", content: "They have great bike stuff and I'd recommend them to anyone.", rating: 5)
@@ -27,6 +27,36 @@ describe Item, type: :model do
       @review_3 = @chain.reviews.create(title: "Meh place", content: "They have meh bike stuff and I probably won't come back", rating: 1)
       @review_4 = @chain.reviews.create(title: "Not too impressed", content: "v basic bike shop", rating: 2)
       @review_5 = @chain.reviews.create(title: "Okay place :/", content: "Brian's cool and all but just an okay selection of items", rating: 3)
+
+      @item_order_1 = create(:item_order, quantity: 10)
+      @item_order_2 = create(:item_order, quantity: 9)
+      @item_order_3 = create(:item_order, quantity: 8)
+      @item_order_4 = create(:item_order, quantity: 7)
+      @item_order_5 = create(:item_order, quantity: 6)
+      @item_order_6 = create(:item_order, quantity: 5)
+      @item_order_7 = create(:item_order, quantity: 4)
+      @item_order_8 = create(:item_order, quantity: 3)
+      @item_order_9 = create(:item_order, quantity: 2)
+      @item_order_10 = create(:item_order, quantity: 1)
+    end
+
+    it 'most popular items' do
+      expected = [@item_order_1.item, @item_order_2.item, @item_order_3.item, @item_order_4.item, @item_order_5.item]
+      expect(Item.most_popular_items).to eq(expected)
+    end
+
+    it 'least popular items' do
+      expected = [@item_order_10.item, @item_order_9.item, @item_order_8.item, @item_order_7.item, @item_order_6.item]
+      expect(Item.least_popular_items).to eq(expected)
+    end
+
+    it 'total bought' do
+      item = create(:item, inventory: 40)
+      item_order_1 = create(:item_order, item: item, quantity: 10)
+      item_order_2 = create(:item_order, item: item, quantity: 5)
+      item_order_3 = create(:item_order, item: item, quantity: 7)
+
+      expect(item.total_bought).to eq(22)
     end
 
     it "calculate average review" do
@@ -43,7 +73,7 @@ describe Item, type: :model do
 
     it 'no orders' do
       expect(@chain.no_orders?).to eq(true)
-      order = Order.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order = create(:order)
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end
