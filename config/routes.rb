@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   get "/profile", to: "users#show"
   post '/users', to: 'users#create'
   get "/profile/:user_id/edit", to: "users#edit"
+  patch "/profile/:user_id/edit", to: "users#update" 
 
   # resources :users, except: %i[new show]
 
