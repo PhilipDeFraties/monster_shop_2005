@@ -49,11 +49,21 @@ RSpec.describe 'Cart creation' do
         expect(page).to have_content("Cart: 1")
       end
 
+      expect(page).to_not have_content(@paper.name)
+    end
+
+    it "if item count is 0 I receive a message reading cart is empty" do
+      visit "/cart"
+
       click_on("-", :match => :first)
+      click_on("-", :match => :first)
+      click_on "-"
 
       within 'nav' do
-        expect(page).to have_content("Cart: 1")
+        expect(page).to have_content("Cart: 0")
       end
+
+      expect(page).to have_content("Cart is currently empty")
     end
   end
 end
