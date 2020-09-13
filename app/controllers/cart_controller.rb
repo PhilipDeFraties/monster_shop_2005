@@ -27,5 +27,12 @@ class CartController < ApplicationController
     redirect_to '/cart'
   end
 
-
+  def update
+    if cart.item_available?(params[:item_id])
+      cart.add_item(params[:item_id])
+    else
+      flash[:error] = "Cannot increase beyond available inventory"
+    end
+    redirect_to '/cart'
+  end
 end
