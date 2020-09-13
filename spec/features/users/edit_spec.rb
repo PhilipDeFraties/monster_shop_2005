@@ -47,6 +47,19 @@ RSpec.describe "Logging In" do
         expect(page).to have_content('123 Main Street')
       end
 
+      it "has a link to update my password" do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
+
+        visit '/profile'
+        expect(page).to have_link("Edit Password")
+        click_link "Edit Password"
+        expect(current_path).to eq("/users/#{@user_1.id}/editpassword")
+
+        expect(page).to have_field(:password, with: nil)
+        #expect(page).to have_field(:password_confirmation, with: nil)
+
+      end
+
     end
   end
 

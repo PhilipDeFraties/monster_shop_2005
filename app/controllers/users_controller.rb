@@ -42,6 +42,23 @@ class UsersController < ApplicationController
     end
   end
 
+  # def editpassword
+  #
+  #   @user = User.find(params[:user_id])
+  # end
+  #update_password
+  def edit_password
+    @user = User.find(params[:user_id])
+    @user.update(user_password_params)
+    if @user.save
+      flash[:success] = "#{user_password_params["name"]}, your profile has been updated!"
+      redirect_to "/profile"
+    else
+      flash[:errors] = "Passwords must match"
+      render :edit
+    end
+  end
+
 
   private
   def user_params
@@ -50,6 +67,10 @@ class UsersController < ApplicationController
 
   def user_edit_params
     params.permit(:name, :address, :city, :state, :zip, :email)
+  end
+
+  def user_password_params
+    params.permit(:password)
   end
 
 end

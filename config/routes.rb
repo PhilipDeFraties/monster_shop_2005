@@ -51,8 +51,15 @@ Rails.application.routes.draw do
   get "/profile", to: "users#show"
   post '/users', to: 'users#create'
   get "/profile/:user_id/edit", to: "users#edit"
-  patch "/profile/:user_id/edit", to: "users#update" 
+  patch "/profile/:user_id/edit", to: "users#update"
 
+  resources :users do
+    member do
+      get :editpassword
+      #patch "/:user_id/editpassword"
+      patch :editpassword
+    end
+  end
   # resources :users, except: %i[new show]
 
   namespace :admin do
