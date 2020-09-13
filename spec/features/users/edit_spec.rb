@@ -25,9 +25,7 @@ RSpec.describe "Logging In" do
         expect(current_path).to eq('/profile')
         expect(page).to have_link("Edit Profile")
         click_on("Edit Profile")
-
         expect(current_path).to eq("/profile/#{@user_1.id}/edit")
-
         expect(page).to have_field(:name, with: "#{@user_1.name}")
         expect(page).to have_field(:address, with: "#{@user_1.address}")
         expect(page).to have_field(:city, with: "#{@user_1.city}")
@@ -36,46 +34,45 @@ RSpec.describe "Logging In" do
         expect(page).to have_field(:email, with: "#{@user_1.email}")
         expect(page).to_not have_field(:password, with: "#{@user_1.password}")
         expect(page).to_not have_field(:password_confirmation, with: "#{@user_1.password_confirmation}")
-
         fill_in "Address", with: '123 Main Street'
-
         click_button "Update Profile"
         expect(current_path).to eq("/profile")
         expect(page).to have_content('123 Main Street')
       end
 
-
       it "When I leave a feild blank I receive an error" do
 
         click_on("Edit Profile")
-
         fill_in "Address", with: ""
-
         click_button "Update Profile"
         expect(current_path).to eq("/profile/#{@user_1.id}/edit")
-
         expect(page).to have_content("Address can't be blank")
-
       end
 
-      # it "when I click on the link to edit my password I see a field for password and confirmation" do
+      it "when I click on the link to edit my password I see a field for password and confirmation" do
 
-      #   expect(current_path).to eq('/profile')
-      #   expect(page).to have_link("Edit Password")
-      #   click_on("Edit Password")
-      #
-      #   expect(current_path).to eq("/profile/#{@user_1.id}/editpassword")
-      #   save_and_open_page
-      #
-      #
-      #   expect(page).to have_field(:password)
-      #   expect(page).to have_field(:password_confirmation)
-      #   #expect(page).to_not have_field(:password, with: "#{@user_1.password}")
-      #
-      #   #expect(page).to have_field(:password_confirmation, with: "")
-      #
-      #
-      # end
+        expect(current_path).to eq('/profile')
+        expect(page).to have_link("Edit Password")
+        click_on("Edit Password")
+        expect(current_path).to eq("/profile/#{@user_1.id}/editpassword")
+        expect(page).to have_field(:password)
+        expect(page).to have_field(:password_confirmation)
+        fill_in "Password", with: '123'
+        fill_in "Password confirmation", with: '123'
+        click_on("Update Password")
+        expect(current_path).to eq("/profile")
+        expect(page).to have_content("#{@user_1.name}, your password has been updated!")
+      end
+
+      it "if password doesn't match password confirmation there is an error" do
+
+        click_on("Edit Password")
+        fill_in "Password", with: '123'
+        fill_in "Password confirmation", with: '321'
+        click_on("Update Password")
+        expect(current_path).to eq("/profile/#{@user_1.id}/editpassword")
+        expect(page).to have_content("Passwords must match")
+      end
 
       it "requires a unique email address" do
         user_2 = User.create(
@@ -91,14 +88,10 @@ RSpec.describe "Logging In" do
 
         click_on("Edit Profile")
         fill_in "Email", with: "other.gates@outlook.com"
-
         click_button "Update Profile"
-
         expect(current_path).to eq("/profile/#{@user_1.id}/edit")
         expect(page).to have_content("Email has already been taken")
-
       end
-
     end
   end
 
