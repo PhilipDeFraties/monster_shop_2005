@@ -25,7 +25,7 @@ RSpec.describe "Logging In" do
         expect(current_path).to eq('/profile')
         expect(page).to have_link("Edit Profile")
         click_on("Edit Profile")
-        expect(current_path).to eq("/profile/#{@user_1.id}/edit")
+        expect(current_path).to eq("/profile/edit")
         expect(page).to have_field(:name, with: "#{@user_1.name}")
         expect(page).to have_field(:address, with: "#{@user_1.address}")
         expect(page).to have_field(:city, with: "#{@user_1.city}")
@@ -45,7 +45,7 @@ RSpec.describe "Logging In" do
         click_on("Edit Profile")
         fill_in "Address", with: ""
         click_button "Update Profile"
-        expect(current_path).to eq("/profile/#{@user_1.id}/edit")
+        expect(current_path).to eq("/profile/edit")
         expect(page).to have_content("Address can't be blank")
       end
 
@@ -54,7 +54,7 @@ RSpec.describe "Logging In" do
         expect(current_path).to eq('/profile')
         expect(page).to have_link("Edit Password")
         click_on("Edit Password")
-        expect(current_path).to eq("/profile/#{@user_1.id}/editpassword")
+        expect(current_path).to eq("/profile/edit_password")
         expect(page).to have_field(:password)
         expect(page).to have_field(:password_confirmation)
         fill_in "Password", with: '123'
@@ -70,7 +70,7 @@ RSpec.describe "Logging In" do
         fill_in "Password", with: '123'
         fill_in "Password confirmation", with: '321'
         click_on("Update Password")
-        expect(current_path).to eq("/profile/#{@user_1.id}/editpassword")
+        expect(current_path).to eq("/profile/edit_password")
         expect(page).to have_content("Passwords must match")
       end
 
@@ -89,7 +89,7 @@ RSpec.describe "Logging In" do
         click_on("Edit Profile")
         fill_in "Email", with: "other.gates@outlook.com"
         click_button "Update Profile"
-        expect(current_path).to eq("/profile/#{@user_1.id}/edit")
+        expect(current_path).to eq("/profile/edit")
         expect(page).to have_content("Email has already been taken")
       end
     end
