@@ -42,6 +42,8 @@ Rails.application.routes.draw do
   delete "/cart", to: "cart#empty"
   delete "/cart/:item_id", to: "cart#remove_item"
   patch "/cart/:item_id", to: "cart#update"
+  patch "/cart/:item_id/decrease", to: "cart#decrease"
+
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
@@ -51,7 +53,7 @@ Rails.application.routes.draw do
   get "/profile", to: "users#show"
   post '/users', to: 'users#create'
   get "/profile/:user_id/edit", to: "users#edit"
-  patch "/profile/:user_id/edit", to: "users#update" 
+  patch "/profile/:user_id/edit", to: "users#update"
 
   # resources :users, except: %i[new show]
 
