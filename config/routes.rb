@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   #this route is for US4 and the merchant dashboard
   namespace :merchant do
-    get '/', to: 'dashboard#index'
+    get '/', to: 'dashboard#show'
   end
 
   get "/items", to: "items#index"
