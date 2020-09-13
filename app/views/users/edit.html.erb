@@ -20,11 +20,6 @@
     <%= f.label :email %>
     <%= f.text_field :email, value: "#{current_user.email}" %>
 
-    <%= f.label :password %>
-    <%= f.text_field :password, value: nil %>
-
-    <%= f.label :password_confirmation %>
-    <%= f.text_field :password_confirmation %>
 
     <%= f.submit 'Update Profile' %>
   <% end %>
