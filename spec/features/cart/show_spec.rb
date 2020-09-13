@@ -71,12 +71,33 @@ RSpec.describe 'Cart show' do
           visit "/cart"
 
           within "#cart-item-#{@paper.id}" do
-            click_link '+'
+              click_link("+")
           end
+
+          within "#item-#{@paper.id}-quantity" do
+            expect(page).to have_content(2)
+          end
+        end
+
+        it "I cannot increase item quantity beyond item inventory" do
+          visit "/cart"
+
+          within "#cart-item-#{@paper.id}" do
+              26.times do
+                click_link("+")
+              end
+          end
+
+          within "#item-#{@paper.id}-quantity" do
+            expect(page).to have_content(25)
+          end
+
+          expect(page).to have_content("Cannot increase beyond available inventory")
         end
       end
     end
   end
+
   describe "When I haven't added anything to my cart" do
     describe "and visit my cart show page" do
       it "I see a message saying my cart is empty" do
