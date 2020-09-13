@@ -28,7 +28,9 @@
 <section id="items-statistics">
   <section id="most-popular-items">
     <ol>
-      <li></li>
+      <% Item.most_popular_items.each do |item| %>
+        <li><%= item.name %> <%= item.total_bought %></li>
+      <% end %>
     </ol>
   </section>
 </section>
