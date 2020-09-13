@@ -17,9 +17,11 @@ RSpec.describe "Logging In" do
       end
       it "When I click on the link to edit my profile data I see a form like the registration page" do
 
+        visit '/login'
+        fill_in :email, with: @user_1.email
+        fill_in :password, with: @user_1.password
+        click_on "Log In"
 
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
-        visit '/profile'
         expect(current_path).to eq('/profile')
         expect(page).to have_link("Edit Profile")
         click_on("Edit Profile")
@@ -37,12 +39,12 @@ RSpec.describe "Logging In" do
         expect(page).to_not have_field(:password_confirmation, with: "#{@user_1.password_confirmation}")
 
         # fill_in :address, with: '123 Main Street'
-        # fill_in "Address", with: '123 Main Street'
-        @user_1.address = '123 Main Street'
+         fill_in "Address", with: '123 Main Street'
+        #@user_1.address = '123 Main Street'
 
         click_button "Update Profile"
         expect(current_path).to eq("/profile")
-        #save_and_open_page
+        save_and_open_page
         #expect(page).to have_content("#{@user_1.name}, your profile has been updated!")
         expect(page).to have_content('123 Main Street')
       end
