@@ -21,12 +21,24 @@ RSpec.describe "Items Index Page" do
 
     describe 'I see an area with statistics' do
       it 'the top 5 most popular items by quantity purchased, plus the quantity bought' do
-        expected_popular_items = [@item_order_1.item, @item_order_2.item, @item_order_3.item, @item_order_4.item, @item_order_5.item]
+        expected_items = [@item_order_1.item, @item_order_2.item, @item_order_3.item, @item_order_4.item, @item_order_5.item]
 
         visit "/items"
 
-        within "#items-statistics" do
-          expected_popular_items.each do |item|
+        within "#most-popular-items" do
+          expected_items.each do |item|
+            expect(page).to have_content("#{item.name} #{item.total_bought}")
+          end
+        end
+      end
+
+      it 'the 5 least popular items by quantity purchased, plus the quantity bought' do
+        expected_items = [@item_order_10.item, @item_order_9.item, @item_order_8.item, @item_order_7.item, @item_order_6.item]
+
+        visit "/items"
+
+        within "#least-popular-items" do
+          expected_items.each do |item|
             expect(page).to have_content("#{item.name} #{item.total_bought}")
           end
         end
