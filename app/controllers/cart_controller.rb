@@ -5,7 +5,6 @@ class CartController < ApplicationController
     render file: "/public/404" if current_admin?
   end
 
-
   def add_item
     item = Item.find(params[:item_id])
     cart.add_item(item.id.to_s)
@@ -33,6 +32,12 @@ class CartController < ApplicationController
     else
       flash[:error] = "Cannot increase beyond available inventory"
     end
+    redirect_to '/cart'
+  end
+
+  def decrease
+    item = Item.find(params[:item_id])
+    cart.contents["#{item.id}"] -= 1 unless cart.contents["#{item.id}"] == 0
     redirect_to '/cart'
   end
 end
