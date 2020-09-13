@@ -25,4 +25,18 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
+  def most_popular_items
+    # Loop through all items
+      # Loop through each order in item
+        # Sum the bought quantity for all the orders on that item
+    binding.pry
+
+    Product.joins("INNER JOIN t ON t.product_id = products.id")
+       .from(
+         Order
+            .select("orders.product_id, COUNT(orders.id) as count")
+            .group("orders.product_id").order("count DESC").limit(10),
+       :t)
+    # .order(quantity: :desc).limit(5)
+  end
 end
