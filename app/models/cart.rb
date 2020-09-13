@@ -32,4 +32,7 @@ class Cart
     end
   end
 
+  def item_available?(item)
+    @contents[item] < Item.find(item).inventory
+  end
 end

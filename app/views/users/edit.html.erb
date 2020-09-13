@@ -1,0 +1,26 @@
+<h1>Edit <%=link_to current_user.name, "/profile" %></h1>
+<center>
+  <%= form_with model: @profile, method: :patch, local: true do |f| %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name, value: "#{current_user.name}" %>
+
+    <%= f.label :address %>
+    <%= f.text_field :address, value: "#{current_user.address}" %>
+
+    <%= f.label :city %>
+    <%= f.text_field :city, value: "#{current_user.city}" %>
+
+    <%= f.label :state %>
+    <%= f.text_field :state, value: "#{current_user.state}" %>
+
+    <%= f.label :zip %>
+    <%= f.text_field :zip, value: "#{current_user.zip}" %>
+
+    <%= f.label :email %>
+    <%= f.text_field :email, value: "#{current_user.email}" %>
+
+
+    <%= f.submit 'Update Profile' %>
+  <% end %>
+</center>

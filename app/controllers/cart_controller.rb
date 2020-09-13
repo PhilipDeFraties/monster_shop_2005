@@ -1,7 +1,7 @@
 class CartController < ApplicationController
-  before_action :require_admin
+  before_action :exclude_admin
 
-  def require_admin
+  def exclude_admin
     render file: "/public/404" if current_admin?
   end
 
@@ -27,5 +27,12 @@ class CartController < ApplicationController
     redirect_to '/cart'
   end
 
-
+  def update
+    if cart.item_available?(params[:item_id])
+      cart.add_item(params[:item_id])
+    else
+      flash[:error] = "Cannot increase beyond available inventory"
+    end
+    redirect_to '/cart'
+  end
 end

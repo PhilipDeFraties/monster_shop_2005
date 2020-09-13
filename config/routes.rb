@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get "/cart", to: "cart#show"
   delete "/cart", to: "cart#empty"
   delete "/cart/:item_id", to: "cart#remove_item"
+  patch "/cart/:item_id", to: "cart#update"
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
@@ -49,6 +50,9 @@ Rails.application.routes.draw do
   get "/register", to: "users#new"
   get "/profile", to: "users#show"
   post '/users', to: 'users#create'
+  get "/profile/:user_id/edit", to: "users#edit"
+  patch "/profile/:user_id/edit", to: "users#update" 
+
   # resources :users, except: %i[new show]
 
   namespace :admin do
@@ -57,4 +61,5 @@ Rails.application.routes.draw do
   end
 
   get "/profile", to: "users#show"
+
 end

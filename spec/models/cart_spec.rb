@@ -47,5 +47,13 @@ RSpec.describe Cart do
       expect(@cart.subtotal(@ogre)).to eq(20)
       expect(@cart.subtotal(@giant)).to eq(100)
     end
+
+    it '.item_available?()' do
+      3.times do
+        @cart.add_item(@hippo.id.to_s)
+      end
+      expect(@cart.item_available?(@hippo.id.to_s)).to eq(false)
+      expect(@cart.item_available?(@ogre.id.to_s)).to eq(true)
+    end
   end
 end

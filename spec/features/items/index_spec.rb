@@ -21,7 +21,8 @@ RSpec.describe "Items Index Page" do
 
     describe 'I see an area with statistics' do
       it 'the top 5 most popular items by quantity purchased, plus the quantity bought' do
-        binding.pry
+        visit "/items"
+        
         within "#items-statistics" do
         end
       end
@@ -68,48 +69,34 @@ RSpec.describe "Items Index Page" do
       expect(page).to_not have_css("img[src*='#{@item_3.image}']")
     end
 
-    describe "As any kind of user on the system" do
+    describe 'when I am logged in as any type of user' do
+      before :each do
+        @default_1 = create(:user)
+        @merchant_1 = create(:merchant_user)
+        @admin_1 = create(:admin_user)
+        @users = [@default_1, @merchant_1, @admin_1]
+      end
+
+      it 'I can visit the items catalog, /items, and see only active items' do
+        @users.each do |user|
+          allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+          visit "/items"
+
+          expect(page).to have_link(@item_2.name)
+          expect(page).to have_link(@item_1.name)
+          expect(page).to_not have_link(@item_3.name)
+        end
+      end
+
       it "From the items page, I can click on an item's image and be directed to it's show page" do
+        @users.each do |user|
+          allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-        visit "/items"
-        find(:xpath, "//a/img[@alt='#{@item_1.name}-image']/..").click
-        expect(current_path).to eq("/items/#{@item_1.id}")
-      end
-
-      it "As an admin, I can visit the items catalog, /items, and see only active items" do
-        admin_1 = create(:admin_user)
-
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_1)
-
-        visit "/items"
-
-        expect(page).to have_link(@item_2.name)
-        expect(page).to have_link(@item_1.name)
-        expect(page).to_not have_link(@item_3.name)
-      end
-
-      it "As a default user, I can visit the items catalog, /items, and see only active items" do
-        default_1 = create(:user)
-
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(default_1)
-
-        visit "/items"
-
-        expect(page).to have_link(@item_2.name)
-        expect(page).to have_link(@item_1.name)
-        expect(page).to_not have_link(@item_3.name)
-      end
-
-      it "As a merchant user, I can visit the items catalog, /items, and see only active items" do
-        merchant_1 = create(:merchant_user)
-
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
-
-        visit "/items"
-
-        expect(page).to have_link(@item_2.name)
-        expect(page).to have_link(@item_1.name)
-        expect(page).to_not have_link(@item_3.name)
+          visit "/items"
+          find(:xpath, "//a/img[@alt='#{@item_1.name}-image']/..").click
+          expect(current_path).to eq("/items/#{@item_1.id}")
+        end
       end
     end
   end
