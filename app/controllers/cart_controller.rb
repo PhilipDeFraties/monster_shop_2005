@@ -38,6 +38,9 @@ class CartController < ApplicationController
   def decrease
     item = Item.find(params[:item_id])
     cart.contents["#{item.id}"] -= 1 unless cart.contents["#{item.id}"] == 0
+    if cart.contents["#{item.id}"] == 0
+      session[:cart].delete(params[:item_id])
+    end
     redirect_to '/cart'
   end
 end
