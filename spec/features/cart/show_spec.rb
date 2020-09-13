@@ -65,6 +65,16 @@ RSpec.describe 'Cart show' do
           end
         end
       end
+
+      describe "When I click the increase quantity button" do
+        it "The item quantity is increased by 1" do
+          visit "/cart"
+
+          within "#cart-item-#{@paper.id}" do
+            click_link '+'
+          end
+        end
+      end
     end
   end
   describe "When I haven't added anything to my cart" do
