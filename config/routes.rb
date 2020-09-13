@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: 'application#index'
+  get "/", to: "application#index"
+
+
   get "/login", to: "sessions#new"
   post '/login', to: 'sessions#create'
-
+  delete '/logout', to: 'sessions#destroy'
 
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"
@@ -11,6 +15,11 @@ Rails.application.routes.draw do
   get "/merchants/:id/edit", to: "merchants#edit"
   patch "/merchants/:id", to: "merchants#update"
   delete "/merchants/:id", to: "merchants#destroy"
+
+  #this route is for US4 and the merchant dashboard
+  namespace :merchant do
+    get '/', to: 'dashboard#index'
+  end
 
   get "/items", to: "items#index"
   get "/items/:id", to: "items#show"
@@ -37,7 +46,15 @@ Rails.application.routes.draw do
   post "/orders", to: "orders#create"
   get "/orders/:id", to: "orders#show"
 
-  get "/users/new", to: "users#new"
-  post "/users/new", to: "users#create"
-  get "/users/:id", to: "users#show"
+  get "/register", to: "users#new"
+  get "/profile", to: "users#show"
+  post '/users', to: 'users#create'
+  # resources :users, except: %i[new show]
+
+  namespace :admin do
+    get '/', to: 'dashboard#show'
+    get '/users', to: 'dashboard#index'
+  end
+
+  get "/profile", to: "users#show"
 end
