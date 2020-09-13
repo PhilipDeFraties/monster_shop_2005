@@ -51,10 +51,10 @@ class UsersController < ApplicationController
     @user.update(user_password_params)
     if @user.save
       flash[:success] = "#{current_user.name}, your password has been updated!"
-      redirect_to "/"
+      redirect_to "/profile"
     else
       flash[:errors] = "Passwords must match"
-      render :edit
+      redirect_to "/profile/#{current_user.id}/editpassword"
     end
   end
 
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :address, :city, :state, :zip, :email, :password)
+    params.require(:user).permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
   end
 
   def user_edit_params
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
   end
 
   def user_password_params
-    params.permit(:password)
+    params.permit(:password, :password_confirmation)
   end
 
 end
