@@ -25,7 +25,7 @@ RSpec.describe 'merchant-employee show page', type: :feature do
 
       expect(current_path).to eq("/merchant")
       expect(page).to have_content("Welcome, #{@merchant_1.name}, you are logged in!")
-      save_and_open_page
+
       within "#merchant-address" do
         expect(page).to have_content("#{@merchant_1.address}")
         expect(page).to have_content("#{@merchant_1.city}")
