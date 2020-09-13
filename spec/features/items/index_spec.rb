@@ -7,7 +7,6 @@ RSpec.describe "Items Index Page" do
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
-
       @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
       @dog_bone = @brian.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
     end
@@ -19,8 +18,7 @@ RSpec.describe "Items Index Page" do
       expect(page).to have_link(@tire.merchant.name)
       expect(page).to have_link(@pull_toy.name)
       expect(page).to have_link(@pull_toy.merchant.name)
-      expect(page).to have_link(@dog_bone.name)
-      expect(page).to have_link(@dog_bone.merchant.name)
+      expect(page).to_not have_link(@dog_bone.name)
     end
 
     it "I can see a list of all of the items "do
@@ -47,14 +45,70 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_css("img[src*='#{@pull_toy.image}']")
       end
 
-      within "#item-#{@dog_bone.id}" do
-        expect(page).to have_link(@dog_bone.name)
-        expect(page).to have_content(@dog_bone.description)
-        expect(page).to have_content("Price: $#{@dog_bone.price}")
-        expect(page).to have_content("Inactive")
-        expect(page).to have_content("Inventory: #{@dog_bone.inventory}")
-        expect(page).to have_link(@brian.name)
-        expect(page).to have_css("img[src*='#{@dog_bone.image}']")
+        expect(page).to_not have_link(@dog_bone.name)
+        expect(page).to_not have_content(@dog_bone.description)
+        expect(page).to_not have_content("Inactive")
+        expect(page).to_not have_content("Inventory: #{@dog_bone.inventory}")
+        expect(page).to_not have_css("img[src*='#{@dog_bone.image}']")
+    end
+
+    describe 'when I am logged in' do
+      before :each do
+        @default_1 = User.create!(
+          name: 'Warren Buffet',
+          address: '9999 Buffet Street',
+          city: 'New York',
+          state: 'NY',
+          zip: '70007',
+          email: 'warrenbuffet@gmail.com',
+          password: 'Password1234',
+          role: 0
+        )
+        @merchant_1 = User.create!(
+          name: 'Warren Buffet',
+          address: '9999 Buffet Street',
+          city: 'New York',
+          state: 'NY',
+          zip: '70007',
+          email: 'allucaneatbuffet@gmail.com',
+          password: 'Password1234',
+          role: 1
+        )
+        @admin_1 = User.create!(
+          name: 'Warren Buffet',
+          address: '9999 Buffet Street',
+          city: 'New York',
+          state: 'NY',
+          zip: '70007',
+          email: 'superbuffet@gmail.com',
+          password: 'Password1234',
+          role: 2
+        )
+        @users = [@default_1, @merchant_1, @admin_1]
+      end
+
+      describe 'as any type of user' do
+        it 'I can visit the items catalog, /items, and see only active items' do
+          @users.each do |user|
+            allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+            visit "/items"
+
+            expect(page).to have_link(@pull_toy.name)
+            expect(page).to have_link(@tire.name)
+            expect(page).to_not have_link(@dog_bone.name)
+          end
+        end
+
+        it "From the items page, I can click on an item's image and be directed to it's show page" do
+          @users.each do |user|
+            allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+            visit "/items"
+            find(:xpath, "//a/img[@alt='#{@tire.name}-image']/..").click
+            expect(current_path).to eq("/items/#{@tire.id}")
+          end
+        end
       end
     end
   end
