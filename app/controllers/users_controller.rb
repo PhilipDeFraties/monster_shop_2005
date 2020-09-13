@@ -37,7 +37,7 @@ class UsersController < ApplicationController
       flash[:success] = "#{user_edit_params["name"]}, your profile has been updated!"
       redirect_to "/profile"
     else
-     flash[:errors] = @user.errors.full_messages
+      flash[:errors] = @user.errors.full_messages
       render :edit
     end
   end
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
   end
 
   def user_edit_params
-    params.permit(:name, :address, :city, :state, :zip, :email, :password)
+    params.permit(:name, :address, :city, :state, :zip, :email)
   end
 
 end
