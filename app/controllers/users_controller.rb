@@ -49,7 +49,6 @@ class UsersController < ApplicationController
   def update_password
     @user = User.find(params[:user_id])
     @user.update(user_password_params)
-    binding.pry
     if @user.save
       flash[:success] = "#{current_user.name}, your password has been updated!"
       redirect_to "/"
