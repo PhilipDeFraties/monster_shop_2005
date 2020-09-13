@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Logging In" do
   describe "As a registered user" do
     describe "When I visit my profile page I see a link to edit my profile data" do
-      it "When I click on the link to edit my profile data I see a form like the registration page" do
+      before :each do
         @user_1 = User.create(
           name: 'Bill Gates',
           address: '1000 Microsoft Drive',
@@ -14,6 +14,9 @@ RSpec.describe "Logging In" do
           password: '@%)abc123#$.',
           role: 0
         )
+      end
+      it "When I click on the link to edit my profile data I see a form like the registration page" do
+
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
         visit '/profile'
@@ -35,15 +38,14 @@ RSpec.describe "Logging In" do
 
         fill_in :address, with: '123 Main Street'
         #fill_in "Address", with: '123 Main Street'
-        fill_in :password, with: "qwerty"
-        fill_in :password_confirmation, with: "qwerty"
 
         click_button "Update Profile"
         expect(current_path).to eq("/profile")
         #save_and_open_page
         expect(page).to have_content("#{@user_1.name}, your profile has been updated!")
-        #expect(page).to have_content('123 Main Street')
+        expect(page).to have_content('123 Main Street')
       end
+
     end
   end
 
