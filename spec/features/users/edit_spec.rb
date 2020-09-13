@@ -16,23 +16,33 @@ RSpec.describe "Logging In" do
         )
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
-
         visit '/profile'
         expect(current_path).to eq('/profile')
         expect(page).to have_link("Edit Profile")
         click_on("Edit Profile")
-        #which of the following is better?
-        #expect(current_path).to eq("/users/edit")
-        #check out how edit merchant is setup. it'll be a carbon copy
+
+
         expect(current_path).to eq("/profile/#{@user_1.id}/edit")
 
+        expect(page).to have_field(:name, with: "#{@user_1.name}")
+        expect(page).to have_field(:address, with: "#{@user_1.address}")
+        expect(page).to have_field(:city, with: "#{@user_1.city}")
+        expect(page).to have_field(:state, with: "#{@user_1.state}")
+        expect(page).to have_field(:zip, with: "#{@user_1.zip}")
+        expect(page).to have_field(:email, with: "#{@user_1.email}")
+        expect(page).to_not have_field(:password, with: "#{@user_1.password}")
+        expect(page).to_not have_field(:password_confirmation, with: "#{@user_1.password_confirmation}")
 
-        expect(page).to have_content("Bill Gates")
-        expect(page).to have_content("1000 Microsoft Drive")
-        expect(page).to have_content("Seattle")
-        expect(page).to have_content("WA")
-        expect(page).to have_content("bill.gates@outlook.com")
-        expect(page).to have_content("@%)abc123#$.")
+        fill_in :address, with: '123 Main Street'
+        #fill_in "Address", with: '123 Main Street'
+        fill_in :password, with: "qwerty"
+        fill_in :password_confirmation, with: "qwerty"
+
+        click_button "Update Profile"
+        expect(current_path).to eq("/profile")
+        #save_and_open_page
+        expect(page).to have_content("#{@user_1.name}, your profile has been updated!")
+        #expect(page).to have_content('123 Main Street')
       end
     end
   end
