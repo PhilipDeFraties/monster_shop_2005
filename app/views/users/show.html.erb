@@ -7,5 +7,9 @@
     <li>State: <%= current_user.state %></li>
     <li>Zip: <%= current_user.zip %></li>
     <li>Email: <%= current_user.email %></li>
-    <%= link_to "Edit Profile", "/profile/#{current_user.id}/edit" %>
+    <%= link_to "Edit Profile", "/profile/edit" %>
+    <br>
+    <%# link_to "Edit Password", editpassword_user_path(current_user.id) %>
+    <%= link_to "Edit Password", "/profile/edit_password" %>
+
 </article>
