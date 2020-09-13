@@ -21,14 +21,14 @@ describe User, type: :model do
     end
 
     it "can be created as a merchant" do
-      merchant_1 = create(:user, role: 1)
+      merchant_1 = create(:merchant_user)
 
       expect(merchant_1.role).to eq("merchant")
       expect(merchant_1.merchant?).to be_truthy
     end
 
     it "can be created as an admin" do
-      admin_1 = create(:user, role: 2)
+      admin_1 = create(:admin_user)
 
       expect(admin_1.role).to eq("admin")
       expect(admin_1.admin?).to be_truthy
