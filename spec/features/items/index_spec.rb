@@ -145,7 +145,7 @@ RSpec.describe "Items Index Page" do
           item_order12 = ItemOrder.create!(order: order_1, item: @dog_bone, price: 21, quantity: 8)
 
           visit '/items'
-          binding.pry
+          save_and_open_page
         end
       end
     end

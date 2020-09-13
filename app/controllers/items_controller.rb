@@ -1,7 +1,7 @@
 class ItemsController<ApplicationController
 
   def index
-    # @item_orders = ItemOrder.most_popular_items
+    @item_orders = ItemOrder.most_popular_items
     if params[:merchant_id]
       @merchant = Merchant.find(params[:merchant_id])
       @items = @merchant.items
