@@ -25,4 +25,5 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
+  
 end

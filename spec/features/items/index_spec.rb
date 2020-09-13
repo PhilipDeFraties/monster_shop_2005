@@ -119,6 +119,35 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_link(@tire.name)
         expect(page).to_not have_link(@dog_bone.name)
       end
+      describe "When I visit the items index page" do
+        it "I see the top 5 most popular items by quantity purchased, plus the quantity bought" do
+
+          frisbee = @brian.items.create(name: "Frisbee", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:true, inventory: 21)
+          slinky = @brian.items.create(name: "Slinky", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:true, inventory: 21)
+          foot = @brian.items.create(name: "foor", description: "Its a foot", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:true, inventory: 21)
+          paper = @meg.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
+          pencil = @meg.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+
+          order_1 = Order.create!(name: "Phil", address: "5 st", city: "Lakewood", state: "CO", zip: 55555)
+          order_2 = Order.create!(name: "Jade", address: "5 st", city: "Lakewood", state: "CO", zip: 55555)
+
+          item_order = ItemOrder.create!(order: order_2, item: frisbee, price: 21, quantity: 1)
+          item_order2 = ItemOrder.create!(order: order_1, item: slinky, price: 21, quantity: 2)
+          item_order3 = ItemOrder.create!(order: order_2, item: foot, price: 21, quantity: 3)
+          item_order4 = ItemOrder.create!(order: order_1, item: paper, price: 21, quantity: 4)
+          item_order5 = ItemOrder.create!(order: order_2, item: pencil, price: 21, quantity: 5)
+          item_order6 = ItemOrder.create!(order: order_1, item: @tire, price: 21, quantity: 6)
+          item_order7 = ItemOrder.create!(order: order_1, item: frisbee, price: 21, quantity: 1)
+          item_order8 = ItemOrder.create!(order: order_2, item: slinky, price: 21, quantity: 2)
+          item_order9 = ItemOrder.create!(order: order_1, item: foot, price: 21, quantity: 3)
+          item_order10 = ItemOrder.create!(order: order_2, item: paper, price: 21, quantity: 8)
+          item_order11 = ItemOrder.create!(order: order_2, item: pencil, price: 21, quantity: 5)
+          item_order12 = ItemOrder.create!(order: order_1, item: @dog_bone, price: 21, quantity: 8)
+
+          visit '/items'
+          binding.pry
+        end
+      end
     end
   end
 end
