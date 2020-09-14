@@ -1,2 +1,15 @@
 
 <h1>Hello, <%= current_user.name %>!</h1>
+<article id="user-<%= current_user.id %>" class='user profile card'>
+  <ul>
+    <li>Address: <%= current_user.address %></li>
+    <li>City: <%= current_user.city %></li>
+    <li>State: <%= current_user.state %></li>
+    <li>Zip: <%= current_user.zip %></li>
+    <li>Email: <%= current_user.email %></li>
+    <%= link_to "Edit Profile", "/profile/edit" %>
+    <br>
+    <%# link_to "Edit Password", editpassword_user_path(current_user.id) %>
+    <%= link_to "Edit Password", "/profile/edit_password" %>
+
+</article>
