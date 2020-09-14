@@ -1,7 +1,6 @@
 class OrdersController <ApplicationController
 
   def new
-
   end
 
   def show
@@ -24,6 +23,7 @@ class OrdersController <ApplicationController
       flash[:notice] = "Please complete address form to create an order."
       render :new
     end
+    require "pry"; binding.pry
   end
 
 

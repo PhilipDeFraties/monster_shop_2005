@@ -127,6 +127,7 @@ RSpec.describe 'Cart show' do
 
           visit("/cart")
           expect(page).to have_content("Please register or login to complete checkout!")
+          expect(page).to_not have_link("Checkout")
 
           within "#visitor" do
             click_link("register")
