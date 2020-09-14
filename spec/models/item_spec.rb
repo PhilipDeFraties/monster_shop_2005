@@ -40,25 +40,6 @@ describe Item, type: :model do
       @item_order_10 = create(:item_order, quantity: 1)
     end
 
-    it 'most popular items' do
-      expected = [@item_order_1.item, @item_order_2.item, @item_order_3.item, @item_order_4.item, @item_order_5.item]
-      expect(Item.most_popular_items).to eq(expected)
-    end
-
-    it 'least popular items' do
-      expected = [@item_order_10.item, @item_order_9.item, @item_order_8.item, @item_order_7.item, @item_order_6.item]
-      expect(Item.least_popular_items).to eq(expected)
-    end
-
-    it 'total bought' do
-      item = create(:item, inventory: 40)
-      item_order_1 = create(:item_order, item: item, quantity: 10)
-      item_order_2 = create(:item_order, item: item, quantity: 5)
-      item_order_3 = create(:item_order, item: item, quantity: 7)
-
-      expect(item.total_bought).to eq(22)
-    end
-
     it "calculate average review" do
       expect(@chain.average_review).to eq(3.0)
     end
