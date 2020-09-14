@@ -26,8 +26,8 @@
   <% end %>
 <section>
 <h3>Most Popular Items By Number Ordered</h3>
-<section class="most-popular-items">
+<section id="most-popular-items">
   <% @item_orders.each do |item_order|%>
-    <%= "#{item_order[0].name}, #{item_order[1]}" %>
+    <%= "#{item_order[0].name}: #{item_order[1]}" %><br>
   <% end %>
 </section>
