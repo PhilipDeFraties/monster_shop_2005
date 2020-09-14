@@ -110,7 +110,54 @@ RSpec.describe 'Cart show' do
         visit '/cart'
         expect(page).to_not have_link("Empty Cart")
       end
+    end
+  end
 
+  describe "As a visitor" do
+    describe "When I have items in my cart, and visit my cart" do
+      before(:each) do
+
+        @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+        @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
+        visit "/items/#{@paper.id}"
+        click_on "Add To Cart"
+      end
+
+        it "I see information telling me I must register or log in to finish, register and log in are links" do
+
+          visit("/cart")
+          expect(page).to have_content("Please register or login to complete checkout!")
+
+          within "#visitor" do
+            click_link("register")
+            expect(current_path).to eq("/register")
+          end
+
+          visit("/cart")
+          within "#visitor" do
+            click_link("login")
+            expect(current_path).to eq("/login")
+          end
+        end
+
+        it "If I am logged in, I don't see a message indicating that I need to do so to checkout" do
+
+          @user_1 = User.create(
+            name: 'Bill Gates',
+            address: '1000 Microsoft Drive',
+            city: 'Seattle',
+            state: 'WA',
+            zip: '00123',
+            email: 'bill.gates@outlook.com',
+            password: '@%)abc123#$.',
+            role: 0
+          )
+
+          allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
+
+          visit("/cart")
+          expect(page).to_not have_content("Please register or login to complete checkout!")
+        end
     end
   end
 end
