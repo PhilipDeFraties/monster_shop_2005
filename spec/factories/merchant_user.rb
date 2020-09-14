@@ -5,8 +5,9 @@ FactoryBot.define do
     city { 'New York' }
     state { 'NY' }
     zip { '70007' }
-    email { 'warrenbuffet@gmail.com' }
-    password { 'Password1234' }
+    sequence(:email) { |n| "merchantemail#{n}@gmail.com" }
+    sequence(:password) {|n| "Hunter#{n}" }
+    sequence(:password_confirmation) {|n| "Hunter#{n}" }
     role { 1 }
   end
 end

@@ -47,7 +47,8 @@ Rails.application.routes.draw do
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
-  get "/orders/:id", to: "orders#show"
+  # get "/orders/:id", to: "orders#show"
+  get "/profile/orders", to: "orders#show"
 
   get "/register", to: "users#new"
   get "/profile", to: "users#show"
@@ -56,8 +57,6 @@ Rails.application.routes.draw do
   get "/profile/edit", to: "users#edit"
   patch "/profile/edit", to: "users#update"
   patch "/profile/edit_password", to: "users#update_password"
-
-
 
   get '/profile/edit_password', to: "users#edit_password"
   # patch "/profile/:user_id/editpassword", to: "users#update_password"

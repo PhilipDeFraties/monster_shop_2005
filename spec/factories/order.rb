@@ -6,5 +6,6 @@ FactoryBot.define do
     state { 'PA' }
     zip { 17033 }
     status { 'pending' }
+    user
   end
 end

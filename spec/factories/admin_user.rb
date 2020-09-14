@@ -7,6 +7,7 @@ FactoryBot.define do
     zip { '80123' }
     sequence(:email) { |n| "merchantemail#{n}@gmail.com" }
     sequence(:password) {|n| "Hunter#{n}" }
+    sequence(:password_confirmation) {|n| "Hunter#{n}" }
     role { 2 }
   end
 end

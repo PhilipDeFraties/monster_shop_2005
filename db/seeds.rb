@@ -28,6 +28,7 @@ user_1 = User.create(name: 'Jeff Bezos',
                     zip: '80123',
                     email: 'jbezos@amazon.com',
                     password: 'Hunter2',
+                    password_confirmation: 'Hunter2',
                     role: 0)
 
 merchant_1 = User.create(name: 'Bill Gates',
@@ -37,6 +38,7 @@ merchant_1 = User.create(name: 'Bill Gates',
                     zip: '00123',
                     email: 'bill.gates@outlook.com',
                     password: '@%)abc123#$.',
+                    password_confirmation: '@%)abc123#$.',
                     role: 1)
 
 admin_1 = User.create(name: 'John Admin',
@@ -46,4 +48,5 @@ admin_1 = User.create(name: 'John Admin',
                     zip: '01011',
                     email: 'john@admin.com',
                     password: 'Hunter2',
+                    password_confirmation: 'Hunter2',
                     role: 2)
