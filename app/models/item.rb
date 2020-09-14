@@ -25,5 +25,8 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
-  
+  def self.most_popular_item
+    order_quant = Item.joins(:item_orders).select("items.*, sum(quantity) as total_ordered").group(:id).order("total_ordered")
+  end
+
 end
