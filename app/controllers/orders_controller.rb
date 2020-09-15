@@ -17,10 +17,11 @@ class OrdersController < ApplicationController
       flash[:warning] = "Must log in before checking out"
       render :new
     else
-
+      #.new
       order = current_user.orders.create(order_params)
 
       if order.save
+        #move to cart as helper 
         cart.items.each do |item,quantity|
           order.item_orders.create({
             item: item,
