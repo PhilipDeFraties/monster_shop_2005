@@ -1,0 +1,11 @@
+<%current_user.orders.each do |order|%>
+<ul>Order Status: <%= order.status %></ul>
+<ul>Confirmation number: <%= order.id %></ul>
+<ul>Total: <%= number_to_currency(current_user.orders.first.grandtotal) %></ul>
+<ul>Date Ordered: <%= order.created_at.strftime("%m/%d/%y") %></ul>
+<%order.items.each do |item| %>
+<ul><%= item.name %> <%= number_to_currency(item.price) %></ul>
+<ul>Vendor: <%= item.merchant.name  %> </ul>
+<% end  %>
+<hr>
+<% end  %>
