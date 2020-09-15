@@ -38,6 +38,29 @@ RSpec.describe 'user show page', type: :feature do
 
         expect(page).to have_link('Edit Profile')
       end
+
+      describe 'when I do NOT have orders placed in the system' do
+        it 'I should NOT see a link on my profile page called "My Orders"' do
+          visit '/profile'
+
+          expect(page).to_not have_link('My Orders')
+        end
+      end
+
+      describe 'And I have orders placed in the system' do
+        it 'I see a link on my profile page called "My Orders that goes to /profile/orders' do
+          order = create(:order, user: @user)
+          item_order_1 = create(:item_order, quantity: 4)
+          item_order_2 = create(:item_order, quantity: 3, order: order)
+          item_order_3 = create(:item_order, quantity: 2, order: order)
+          item_order_4 = create(:item_order, quantity: 1, order: order)
+          
+          visit '/profile'
+
+          expect(page).to have_link('My Orders')
+
+        end
+      end
     end
   end
 end
