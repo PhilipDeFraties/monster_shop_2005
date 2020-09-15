@@ -48,3 +48,6 @@ admin_1 = User.create(name: 'John Admin',
                     email: 'john@admin.com',
                     password: 'Hunter2',
                     role: 2)
+
+#an order
+@order = Order.create(name: "Human Person", address: "Address", city: "City", state: "State", zip: "12345", status: "pending", user_id: @user_1.id)

@@ -1,11 +1,9 @@
 class OrdersController < ApplicationController
 
   def index
-
   end
 
   def new
-
   end
 
   def show
@@ -13,31 +11,22 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if !current_user
-      flash[:warning] = "Must log in before checking out"
-      render :new
-    else
-
-      order = current_user.orders.create(order_params)
-
-      if order.save
-        cart.items.each do |item,quantity|
-          order.item_orders.create({
-            item: item,
-            quantity: quantity,
-            price: item.price
-            })
-        end
-        session.delete(:cart)
-        flash[:success] = "Your order has been created!"
-        # redirect_to "/orders/#{order.id}"
+     unless current_user
+       flash[:warning] = "Must log in before checking out"
+       render :new
+     else
+       order = current_user.orders.new(order_params)
+       if order.save
+         cart.item_orders_create(cart, order)
+         session.delete(:cart)
+         flash[:success] = "Your order has been created!"
          redirect_to "/profile/orders"
-      else
-        flash[:notice] = "Please complete address form to create an order."
-        render :new
-      end
-    end
-  end
+       else
+         flash[:notice] = "Please complete address form to create an order."
+         render :new
+       end
+     end
+   end
 
 
   private
