@@ -22,26 +22,40 @@
 <center>
   <table>
     <tr>
+      <th>Image</th>
+      <th>Order ID</th>
+      <th>Status</th>
       <th>Item</th>
+      <th>Description</th>
       <th>Sold By</th>
       <th>Price</th>
       <th>Quantity</th>
       <th>Subtotal</th>
+      <th>Date Created</th>
+      <th>Date Updated</th>
+
     </tr>
   <% @order.item_orders.each do |item_order|%>
     <tr>
     <section id = "item-<%=item_order.item_id%>">
+        <td><img src="<%= item_order.item.image %>" width="100" height="100"</img></td>
+        <td><p><%= @order.id %></p></td>
+        <td><p><%= @order.status %></p></td>
         <td><p><%=link_to item_order.item.name, "/items/#{item_order.item_id}"%></p></td>
+        <td><p><%= @order.items.first.description %></p></td>
         <td><p><%= link_to item_order.item.merchant.name, "/merchants/#{item_order.item.merchant.id}"%></p></td>
         <td><p><%= number_to_currency(item_order.price)%></p></td>
         <td><p><%= item_order.quantity%></p></td>
         <td><p><%= number_to_currency(item_order.subtotal)%></p></td>
+        <td><p><%= @order.created_at.strftime("%m/%d/%y") %></p></td>
+        <td><p><%= @order.updated_at.strftime("%m/%d/%y") %></p></td>
       </section>
     </tr>
   <% end %>
 </table>
 
 <section id="grandtotal">
+  <p>Number of Items in Order: <%= @order.items.count%></p>
   <p>Total: <%=number_to_currency(@order.grandtotal)%></p>
 </section>
 <section id="datecreated">
