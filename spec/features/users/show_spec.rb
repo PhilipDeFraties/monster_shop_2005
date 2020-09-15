@@ -69,7 +69,6 @@ RSpec.describe 'user show page', type: :feature do
 
         visit "/profile"
         expect(page).to have_link('My Orders')
-        save_and_open_page
 
         click_on "My Orders"
         expect(current_path).to eq("/profile/orders")
