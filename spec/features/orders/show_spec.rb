@@ -36,10 +36,24 @@ RSpec.describe 'Profile Orders' do
     end
 
     it "I can click See Order and go to that order show page" do
-      expect(page).to have_link("See Order")
-      click_on "See Order"
+      expect(page).to have_link("Confirmation number: #{@user_1.orders.first.id}")
+      click_on "Confirmation number: #{@user_1.orders.first.id}"
       expect(current_path).to eq("/profile/orders/#{@user_1.orders.first.id}")
+    end
 
+    it "has the following information" do
+      expect(page).to have_content("#{@user_1.orders.first.id}")
+      expect(page).to have_content(@user_1.orders.first.created_at.strftime("%m/%d/%y"))
+      expect(page).to have_content(@user_1.orders.first.updated_at.strftime("%m/%d/%y"))
+      expect(page).to have_content("Order Status: pending")
+      expect(page).to have_content("Number of Items in Order: #{@user_1.orders.first.item.name}")
+      expect(page).to have_content("Number of Items in Order: #{@user_1.orders.first.item.description}")
+      expect(page).to have_content("Number of Items in Order: #{@user_1.orders.first.item.thumbnail}")
+      expect(page).to have_content("Number of Items in Order: #{@user_1.orders.first.item.quantity}")
+      expect(page).to have_content("Number of Items in Order: #{@user_1.orders.first.item.price}")
+      expect(page).to have_content("Number of Items in Order: #{@user_1.orders.first.item.subtotal}")
+      expect(page).to have_content("Number of Items in Order: #{@user_1.orders.first.items.count}")
+      expect(page).to have_content("Total: $122.00")
     end
   end
 end

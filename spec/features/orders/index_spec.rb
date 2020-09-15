@@ -49,8 +49,7 @@ RSpec.describe 'Profile Orders' do
         # expect(page).to have_content(@tire.merchant.name)
         # expect(page).to have_content(@pencil.name)
         # expect(page).to have_content(@pencil.merchant.name)
-        expect(page).to have_link("See Order")
-
+        expect(page).to have_link("Confirmation number: #{@user_1.orders.first.id}")
       end
 
 
