@@ -44,8 +44,10 @@ RSpec.describe 'Cart show' do
       fill_in 'State', with: "#{@user_1.state}"
       fill_in 'Zip', with: "#{@user_1.zip}"
       click_on "Create Order"
+      save_and_open_page
       expect(current_path).to eq("/profile/orders")
       expect(page).to have_content("Your order has been created!")
+      expect(page).to have_content("pending")
       expect(page).to have_content(@paper.name)
       expect(page).to have_content(@paper.merchant.name)
       expect(page).to have_content(@tire.name)
