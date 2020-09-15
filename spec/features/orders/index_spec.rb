@@ -43,12 +43,14 @@ RSpec.describe 'Profile Orders' do
         expect(page).to have_content("Order Status: pending")
         expect(page).to have_content("Number of Items in Order: #{@user_1.orders.first.items.count}")
         expect(page).to have_content("Total: $122.00")
-        expect(page).to have_content(@paper.name)
-        expect(page).to have_content(@paper.merchant.name)
-        expect(page).to have_content(@tire.name)
-        expect(page).to have_content(@tire.merchant.name)
-        expect(page).to have_content(@pencil.name)
-        expect(page).to have_content(@pencil.merchant.name)
+        # expect(page).to have_content(@paper.name)
+        # expect(page).to have_content(@paper.merchant.name)
+        # expect(page).to have_content(@tire.name)
+        # expect(page).to have_content(@tire.merchant.name)
+        # expect(page).to have_content(@pencil.name)
+        # expect(page).to have_content(@pencil.merchant.name)
+        expect(page).to have_link("See Order")
+
       end
 
 
