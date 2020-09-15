@@ -11,6 +11,7 @@
     <br>
     <%# link_to "Edit Password", editpassword_user_path(current_user.id) %>
     <%= link_to "Edit Password", "/profile/edit_password" %>
+    <br>
     <% unless current_user.orders.empty? %>
       <%= link_to "My Orders", "/profile/orders" %>
     <% end %>
