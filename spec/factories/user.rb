@@ -5,8 +5,8 @@ FactoryBot.define do
     city { 'Denver' }
     state { 'CO' }
     zip { '80123' }
-    email { 'jbezos@amazon.com' }
-    password { 'Hunter2' }
+    sequence(:email) { |n| "jbezos#{n}@amazon.com" }
+    sequence(:password) { |n| "Hunter#{n}" }
     role { 0 }
   end
 end

@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-     if !current_user
+     unless current_user
        flash[:warning] = "Must log in before checking out"
        render :new
      else

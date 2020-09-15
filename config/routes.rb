@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   #this route is for US4 and the merchant dashboard
   namespace :merchant do
-    get '/', to: 'dashboard#index'
+    get '/', to: 'dashboard#show'
   end
 
   get "/items", to: "items#index"
@@ -47,7 +47,7 @@ Rails.application.routes.draw do
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
-  #get "/orders/:id", to: "orders#show"
+  
   get "/profile/orders", to: "orders#index"
   get "/profile/orders/:id", to: "orders#show"
 

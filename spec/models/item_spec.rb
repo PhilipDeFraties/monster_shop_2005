@@ -50,15 +50,6 @@ describe Item, type: :model do
       expect(Item.least_popular_items).to eq(expected)
     end
 
-    it 'total bought' do
-      item = create(:item, inventory: 40)
-      item_order_1 = create(:item_order, item: item, quantity: 10)
-      item_order_2 = create(:item_order, item: item, quantity: 5)
-      item_order_3 = create(:item_order, item: item, quantity: 7)
-
-      expect(item.total_bought).to eq(22)
-    end
-
     it "calculate average review" do
       expect(@chain.average_review).to eq(3.0)
     end

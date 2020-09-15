@@ -1,20 +1,9 @@
-# As a registered user
-# When I visit my profile page
-# Then I see all of my profile data on the page except my password
-# And I see a link to edit my profile data
 require 'rails_helper'
 
 RSpec.describe 'user show page', type: :feature do
   describe 'As a user' do
     before :each do
-      @user = User.create(name: 'Jeff Bezos',
-                          address: '123 Main Street',
-                          city: 'Denver',
-                          state: 'CO',
-                          zip: '80123',
-                          email: 'jbezos@amazon.com',
-                          password: 'Hunter2',
-                          role: 0)
+      @user = User.create(name: 'Jeff Bezos', address: '123 Main Street', city: 'Denver', state: 'CO', zip: '80123', email: 'jbezos@amazon.com', password: 'Hunter2', role: 0)
       @mike = Merchant.create!(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @meg = Merchant.create!(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
 
@@ -22,13 +11,11 @@ RSpec.describe 'user show page', type: :feature do
       @paper = @mike.items.create!(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
       @pencil = @mike.items.create!(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
 
-
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
     describe "When I visit my profile page" do
       it "I see all of my profile data on the page except my password" do
-
         visit '/profile'
 
         expect(current_path).to eq('/profile')
@@ -44,6 +31,29 @@ RSpec.describe 'user show page', type: :feature do
         visit '/profile'
 
         expect(page).to have_link('Edit Profile')
+      end
+
+      describe 'when I do NOT have orders placed in the system' do
+        it 'I should NOT see a link on my profile page called "My Orders"' do
+          visit '/profile'
+
+          expect(page).to_not have_link('My Orders')
+        end
+      end
+
+      describe 'And I have orders placed in the system' do
+        it 'I see a link on my profile page called "My Orders that goes to /profile/orders' do
+          order = create(:order, user: @user)
+          item_order_1 = create(:item_order, quantity: 4)
+          item_order_2 = create(:item_order, quantity: 3, order: order)
+          item_order_3 = create(:item_order, quantity: 2, order: order)
+          item_order_4 = create(:item_order, quantity: 1, order: order)
+          
+          visit '/profile'
+
+          expect(page).to have_link('My Orders')
+
+        end
       end
     end
 
