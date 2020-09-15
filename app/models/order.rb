@@ -3,7 +3,7 @@ class Order <ApplicationRecord
 
   has_many :item_orders
   has_many :items, through: :item_orders
-
+  belongs_to :user, optional: true
   def grandtotal
     item_orders.sum('price * quantity')
   end
