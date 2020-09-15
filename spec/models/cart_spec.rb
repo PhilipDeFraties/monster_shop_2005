@@ -12,6 +12,17 @@ RSpec.describe Cart do
         @ogre.id.to_s => 1,
         @giant.id.to_s => 2
         })
+
+      @user_1 = User.create(name: 'Jeff Bezos',
+                          address: '123 Main Street',
+                          city: 'Denver',
+                          state: 'CO',
+                          zip: '80123',
+                          email: 'jbezos@amazon.com',
+                          password: 'Hunter2',
+                          role: 0)
+      @order = Order.create(name: "Human Person", address: "Address", city: "City", state: "State", zip: "12345", status: "pending", user_id: @user_1.id)
+
     end
 
     it '.contents' do
@@ -54,6 +65,11 @@ RSpec.describe Cart do
       end
       expect(@cart.item_available?(@hippo.id.to_s)).to eq(false)
       expect(@cart.item_available?(@ogre.id.to_s)).to eq(true)
+    end
+
+    it "creates a join table between cart and order" do
+      @cart.item_orders_create(@cart, @order)
+      ActiveRecord::Base.connection.table_exists? 'item_orders'
     end
   end
 end
