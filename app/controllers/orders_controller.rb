@@ -13,12 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if !session[:user_id].nil?
-      user = User.find(session[:user_id])
-      order = user.orders.create(order_params)
-    else
-      order = Order.create(order_params)
-    end
+    order = current_user.orders.create(order_params)
 
     if order.save
       cart.items.each do |item,quantity|
