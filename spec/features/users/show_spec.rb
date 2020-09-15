@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-# As a registered user
-# When I visit my profile page
-# Then I see all of my profile data on the page except my password
-# And I see a link to edit my profile data
-=======
->>>>>>> 29a8cd5950c737bf803ac365c888912d3521074f
 require 'rails_helper'
 
 RSpec.describe 'user show page', type: :feature do
@@ -72,10 +65,6 @@ RSpec.describe 'user show page', type: :feature do
 
         visit "/profile"
         expect(page).to have_link('My Orders')
-<<<<<<< HEAD
-        save_and_open_page
-=======
->>>>>>> 29a8cd5950c737bf803ac365c888912d3521074f
 
         click_on "My Orders"
         expect(current_path).to eq("/profile/orders")
