@@ -43,7 +43,6 @@ RSpec.describe 'Profile Orders' do
 
     it "has the following information" do
       click_on "Confirmation number: #{@user_1.orders.first.id}"
-      save_and_open_page
       expect(page).to have_css("img[src*='#{"https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png"}']")
       expect(page).to have_content("#{@user_1.orders.first.id}")
       expect(page).to have_content(@user_1.orders.first.created_at.strftime("%m/%d/%y"))
