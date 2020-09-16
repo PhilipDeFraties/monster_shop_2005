@@ -39,18 +39,18 @@
 
   <% @order.item_orders.each do |item_order|%>
     <tr>
-    <section id = "item-<%=item_order.item_id%>">
+      <section id = "item-<%=item_order.item_id%>">
         <td><img src="<%= item_order.item.image %>" width="100" height="100"</img></td>
-        <td><p><%= @order.id %></p></td>
-        <td><p><%= item_order.status %></p></td>
-        <td><p><%=link_to item_order.item.name, "/items/#{item_order.item_id}"%></p></td>
-        <td><p><%= @order.items.first.description %></p></td>
-        <td><p><%= link_to item_order.item.merchant.name, "/merchants/#{item_order.item.merchant.id}"%></p></td>
-        <td><p><%= number_to_currency(item_order.price)%></p></td>
-        <td><p><%= item_order.quantity%></p></td>
-        <td><p><%= number_to_currency(item_order.subtotal)%></p></td>
-        <td><p><%= @order.created_at.localtime.strftime("%m/%d/%y") %></p></td>
-        <td><p><%= @order.updated_at.localtime.strftime("%m/%d/%y") %></p></td>
+        <td><%= @order.id %></td>
+        <td><section class='item-<%= item_order.item_id %>-order-status-cell'><%= item_order.status %></section></td>
+        <td><%=link_to item_order.item.name, "/items/#{item_order.item_id}"%></td>
+        <td><%= @order.items.first.description %></td>
+        <td><%= link_to item_order.item.merchant.name, "/merchants/#{item_order.item.merchant.id}"%></td>
+        <td><%= number_to_currency(item_order.price)%></td>
+        <td><%= item_order.quantity%></td>
+        <td><%= number_to_currency(item_order.subtotal)%></td>
+        <td><%= @order.created_at.localtime.strftime("%m/%d/%y") %></td>
+        <td><%= @order.updated_at.localtime.strftime("%m/%d/%y") %></td>
       </section>
     </tr>
   <% end %>
@@ -63,6 +63,7 @@
 </section>
 <section id="datecreated">
   <p>Order Placed: <%= @order.created_at.localtime.strftime("%B %d, %Y at %l:%M %p") %></p>
-  if @order.status
-  <p><%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :delete %>
+  <% if @order.status != 'cancelled' %>
+    <p><%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :delete %>
+  <% end %>
 </section>
