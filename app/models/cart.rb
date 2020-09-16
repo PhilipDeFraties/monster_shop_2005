@@ -32,4 +32,17 @@ class Cart
     end
   end
 
+  def item_available?(item)
+    @contents[item] < Item.find(item).inventory
+  end
+
+  def item_orders_create(cart_params, order)
+    cart_params.items.each do |item,quantity|
+      order.item_orders.create({
+        item: item,
+        quantity: quantity,
+        price: item.price
+        })
+    end
+  end
 end

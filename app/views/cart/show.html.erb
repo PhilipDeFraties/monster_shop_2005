@@ -1,5 +1,9 @@
 <h1>Cart</h1>
-
+<% if current_user.nil? && !@items.empty? %>
+  <section id="visitor">
+      <p style="text-align:center;color:red">Please <%=link_to "register", "/register" %> or <%= link_to "login", "/login" %> to complete checkout!</p>
+  </section>
+<% end %>
 <% if !@items.empty? %>
 <center>
 <table class = "cart-items">
@@ -30,8 +34,13 @@
       </td>
       <td>
         <center>
+          <div id= "item-<%= item.id %>-quantity">
           <p><%=quantity%></p>
+          </div>
           <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
+          <p><%= link_to "+", "/cart/#{item.id}", method: :patch%><p>
+          <p><%= link_to "-", "/cart/#{item.id}/decrease", method: :patch%><p>
+
         </center>
         </td>
       <td>

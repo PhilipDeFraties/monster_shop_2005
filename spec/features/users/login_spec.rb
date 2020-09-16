@@ -1,11 +1,3 @@
-# As a visitor
-# When I visit the login path
-# I see a field to enter my email address and password
-# When I submit valid information
-# If I am a regular user, I am redirected to my profile page
-# If I am a merchant user, I am redirected to my merchant dashboard page
-# If I am an admin user, I am redirected to my admin dashboard page
-# And I see a flash message that I am logged in
 require 'rails_helper'
 
 RSpec.describe "Logging In" do
