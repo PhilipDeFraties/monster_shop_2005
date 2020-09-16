@@ -26,8 +26,8 @@ RSpec.describe "Items Index Page" do
         visit "/items"
 
         within "#most-popular-items" do
-          expected_items.each do |item|
-            expect(page).to have_content("#{item.name} #{item.total_bought}")
+          Item.most_popular_items do |item|
+            expect(page).to have_content("#{item.name} #{item.quantity_sum}")
           end
         end
       end
@@ -38,8 +38,8 @@ RSpec.describe "Items Index Page" do
         visit "/items"
 
         within "#least-popular-items" do
-          expected_items.each do |item|
-            expect(page).to have_content("#{item.name} #{item.total_bought}")
+          Item.least_popular_items do |item|
+            expect(page).to have_content("#{item.name} #{item.quantity_sum}")
           end
         end
       end

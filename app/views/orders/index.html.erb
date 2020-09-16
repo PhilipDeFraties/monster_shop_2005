@@ -1,8 +1,10 @@
 <%current_user.orders.each do |order|%>
-<ul>Order Status: <%= order.status %></ul>
-<ul>Confirmation number: <%= order.id %></ul>
+<ul><%= link_to "Confirmation number: #{order.id}", "/profile/orders/#{order.id}" %></ul>
 <ul>Total: <%= number_to_currency(order.grandtotal) %></ul>
 <ul>Date Ordered: <%= order.created_at.strftime("%m/%d/%y") %></ul>
+<ul>Last Updated On: <%= order.updated_at.strftime("%m/%d/%y") %></ul>
+<ul>Order Status: <%= order.status %></ul>
+<ul>Number of Items in Order: <%= order.items.count %></ul>
 <%order.items.each do |item| %>
 <ul><%= item.name %> <%= number_to_currency(item.price) %></ul>
 <ul>Vendor: <%= item.merchant.name  %> </ul>
