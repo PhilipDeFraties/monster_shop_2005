@@ -1,12 +1,16 @@
+<h2>Orders</h2>
 <%@orders.each do |order|%>
-<h2><%= link_to "Order ID: #{order.id}", "/merchant/orders/#{order.id}" %></h2>
-  <%binding.pry %>
+<p><%= link_to "Order ID: #{order.id}", "/merchant/orders/#{order.id}" %></p>
   <%order.items.each do |item| %>
     <%if order.status == "pending" %>
-      <%= item.name %>
+      <p><%= item.name %></p>
+      <p><%= order.created_at.strftime("%m/%d/%y") %></p>
+      <p><%= order.items.count %></p>
+      <p><%= "#{number_to_currency(order.grandtotal)}" %></p>
       <%end  %>
     <%end  %>
 <% end  %>
+
 
 
 

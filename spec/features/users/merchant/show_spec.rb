@@ -27,7 +27,7 @@ RSpec.describe 'merchant-employee show page', type: :feature do
 
 
       @tire = @bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
-      @other = @bike_shop.items.create(name: "other", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      @other = @bike_shop.items.create(name: "Not skins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
 
       @order = Order.create(name: "Human Person", address: "Address", city: "City", state: "State", zip: "12345", status: "pending", user_id: @user_1.id)
       ItemOrder.create(order_id: @order.id, item_id: @tire.id, price: 100, quantity: 15)
@@ -62,17 +62,17 @@ RSpec.describe 'merchant-employee show page', type: :feature do
       click_on "Log In"
 
       visit "/merchant"
+
       expect(page).to have_link("Order ID: #{@order.id}")
 
-      #expect(page).to have_link("/merchant/orders/#{@order.id}")
-
-      #prints on show page twice
       @bike_shop.items.each do |item|
         expect(page).to have_content(@order.id)
-        expect(page).to have_content(@order.created_at)
+        expect(page).to have_content(@order.created_at.strftime("%m/%d/%y"))
         expect(page).to have_content(@order.items.count)
         expect(page).to have_content(item.name)
       end
+      expect(page).to have_content("$3,000")
+
 
 
 
