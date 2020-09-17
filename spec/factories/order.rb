@@ -5,5 +5,6 @@ FactoryBot.define do
     city { 'Hershey' }
     state { 'PA' }
     zip { 17033 }
+    user
   end
 end

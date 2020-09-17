@@ -8,17 +8,17 @@ RSpec.describe Cart do
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', inventory: 2 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', inventory: 3 )
-      @cart = Cart.new({
-        @ogre.id.to_s => 1,
-        @giant.id.to_s => 2
-        })
+      @cart = Cart.new({@ogre.id.to_s => 1, @giant.id.to_s => 2})
+
+      @user_1 = User.create(name: 'Jeff Bezos', address: '123 Main Street', city: 'Denver', state: 'CO', zip: '80123', email: 'jbezos@amazon.com', password: 'Hunter2', role: 0)
+      @order = Order.create(name: "Human Person", address: "Address", city: "City", state: "State", zip: "12345", status: "pending", user_id: @user_1.id)
     end
 
     it '.contents' do
       expect(@cart.contents).to eq({
         @ogre.id.to_s => 1,
         @giant.id.to_s => 2
-        })
+      })
     end
 
     it '.add_item()' do
@@ -28,7 +28,7 @@ RSpec.describe Cart do
         @ogre.id.to_s => 1,
         @giant.id.to_s => 2,
         @hippo.id.to_s => 1
-        })
+      })
     end
 
     it '.total_items' do
@@ -54,6 +54,11 @@ RSpec.describe Cart do
       end
       expect(@cart.item_available?(@hippo.id.to_s)).to eq(false)
       expect(@cart.item_available?(@ogre.id.to_s)).to eq(true)
+    end
+
+    it "creates a join table between cart and order" do
+      @cart.item_orders_create(@cart, @order)
+      ActiveRecord::Base.connection.table_exists? 'item_orders'
     end
   end
 end

@@ -1,11 +1,3 @@
-# As a visitor
-# When I visit the login path
-# I see a field to enter my email address and password
-# When I submit valid information
-# If I am a regular user, I am redirected to my profile page
-# If I am a merchant user, I am redirected to my merchant dashboard page
-# If I am an admin user, I am redirected to my admin dashboard page
-# And I see a flash message that I am logged in
 require 'rails_helper'
 
 RSpec.describe "Logging In" do
@@ -18,6 +10,8 @@ RSpec.describe "Logging In" do
                         email: 'jbezos@amazon.com',
                         password: 'Hunter2',
                         role: 0)
+    @bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+
     @merchant_1 = User.create!(name: 'Bill Gates',
                         address: '1000 Microsoft Drive',
                         city: 'Seattle',
@@ -25,6 +19,7 @@ RSpec.describe "Logging In" do
                         zip: '00123',
                         email: 'bill.gates@outlook.com',
                         password: '@%)abc123#$.',
+                        merchant_id: @bike_shop.id,
                         role: 1)
     @admin_1 = User.create!(name: 'Phil DeFraties',
                         address: '1000 Microsoft Drive',
