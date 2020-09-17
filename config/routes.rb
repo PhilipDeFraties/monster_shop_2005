@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   patch "/merchants/:id", to: "merchants#update"
   delete "/merchants/:id", to: "merchants#destroy"
 
+
   #this route is for US4 and the merchant dashboard
   namespace :merchant do
     get '/', to: 'dashboard#show'
@@ -65,7 +66,8 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/', to: 'dashboard#show'
     get '/users', to: 'dashboard#index'
-    get '/merchant/:merchant_id', to: 'merchant#show'
-    get '/merchant', to: 'merchant#index'
+    get '/merchants', to: 'merchant#index'
+    patch '/merchants/:merchant_id', to: 'merchant#update'
+    get '/merchants/:merchant_id', to: 'merchant#show'
   end
 end

@@ -1,0 +1,25 @@
+<section id='merchant-info'>
+  <h1 align = "center">Merchants</h1>
+  <center>
+    <table>
+      <tr>
+        <th>Merchant</th>
+        <th>Status</th>
+        <th>Enable/Disable</th>
+      </tr>
+</section>
+
+<% @merchants.each do |merchant| %>
+  <tr>
+    <section id= 'merchant-<%= merchant.id %>'>
+      <td><%= merchant.name %></td>
+      <td><%= merchant.status %></td>
+      <% if merchant.status == 'Enabled' %>
+      <td align = "center"><%= button_to 'Disable', "/admin/merchants/#{merchant.id}", method: :patch%></td>
+      <% else %>
+      <td>Disabled</td>
+      <% end %>
+    </section>
+  </tr>
+  <% end %>
+</table>
