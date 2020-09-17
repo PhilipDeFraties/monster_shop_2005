@@ -71,7 +71,4 @@ Rails.application.routes.draw do
     patch '/merchants/:merchant_id', to: 'merchant#update'
     get '/merchants/:merchant_id', to: 'merchant#show'
   end
-
-  get "/profile", to: "users#show"
-
 end
