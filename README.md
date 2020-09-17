@@ -66,12 +66,12 @@ After following the above commands you should be able to go to localhost/3000 wi
 
 ## Technologies Used
 
-Ruby
-GitHub
-GitHub Projects
-Atom
-Slack
-Zoom
+- Ruby
+- GitHub
+- GitHub Projects
+- Atom
+- Slack
+- Zoom
 
 ## Reflection
 
