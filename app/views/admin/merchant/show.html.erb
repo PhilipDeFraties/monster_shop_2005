@@ -1,0 +1,24 @@
+<h2>Orders</h2>
+<%@orders.each do |order|%>
+<p><%= link_to "Order ID: #{order.id}", "/merchant/orders/#{order.id}" %></p>
+  <%order.items.each do |item| %>
+    <%if order.status == "pending" %>
+      <p><%= item.name %></p>
+      <p><%= order.created_at.strftime("%m/%d/%y") %></p>
+      <p><%= order.items.count %></p>
+      <p><%= "#{number_to_currency(order.grandtotal)}" %></p>
+      <%end  %>
+    <%end  %>
+<% end  %>
+
+
+
+
+<section id="merchant-address">
+  <h3><%= @merchant.name %> Address:</h3>
+  <%= @merchant.address %><br>
+  <%= @merchant.city %><br>
+  <%= @merchant.state %><br>
+  <%= @merchant.zip %><br>
+</section>
+<p><%= link_to "View Items", "/merchant/items" %></p>
