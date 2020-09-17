@@ -15,7 +15,7 @@
       <td><%= merchant.name %></td>
       <td><%= merchant.status %></td>
       <% if merchant.status == 'Enabled' %>
-      <td align = "center"><%= button_to 'Disable', '/admin/merchants', method: :patch%></td>
+      <td align = "center"><%= button_to 'Disable', "/admin/merchants/#{merchant.id}", method: :patch%></td>
       <% else %>
       <td>Disabled</td>
       <% end %>
