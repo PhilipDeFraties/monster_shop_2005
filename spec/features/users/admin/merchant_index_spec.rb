@@ -31,7 +31,7 @@ RSpec.describe "As an admin", type: :feature do
       click_on "Log In"
 
       visit '/admin/merchants'
-  
+
       expect(page).to have_content(@merchant_1.name)
       expect(page).to have_content(@merchant_2.name)
     end
