@@ -50,4 +50,4 @@ admin_1 = User.create(name: 'John Admin',
                     role: 2)
 
 #an order
-@order = Order.create(name: "Human Person", address: "Address", city: "City", state: "State", zip: "12345", status: "pending", user_id: @user_1.id)
+order = Order.create(name: "Human Person", address: "Address", city: "City", state: "State", zip: "12345", status: "pending", user_id: user_1.id)

@@ -6,6 +6,11 @@ class MerchantsController <ApplicationController
 
   def show
     @merchant = Merchant.find(params[:id])
+    if current_user.role == "admin"
+      render 'admin_show'
+    else
+      render 'merchant_show'
+    end
   end
 
   def new
