@@ -18,8 +18,8 @@ RSpec.describe "As an admin", type: :feature do
                         password: 'Hunter2',
                         role: 2)
 
-    @bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
-    @dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+    @merchant_1 = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    @merchant_2 = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
     end
 
     it "I see a list of all merchants" do
@@ -32,8 +32,8 @@ RSpec.describe "As an admin", type: :feature do
 
       visit '/admin/merchants'
 
-      expect(page).to have_content(@bike_shop.name)
-      expect(page).to have_content(@dog_shop.name)
+      expect(page).to have_content(@merchant_1.name)
+      expect(page).to have_content(@merchant_2.name)
     end
 
     it "Next to each merchant I see a button to disable it" do
@@ -50,6 +50,39 @@ RSpec.describe "As an admin", type: :feature do
         within "#merchant-#{merchant.id}"
         expect(page).to have_content('Enabled')
         expect(page).to have_button('Disable')
+      end
+    end
+
+    describe "When I click a merchants disable button" do
+      describe "I am returned to the admin's merchant index page" do
+        describe "I see that the merchant's account is now disabled" do
+          describe "And a flash message that the merchant's account is disabled" do
+            it "Next to each merchant I see a button to disable it" do
+
+              visit '/login'
+
+              fill_in :email, with: @admin_1.email
+              fill_in :password, with: @admin_1.password
+              click_on "Log In"
+
+              visit '/admin/merchants'
+              within "#merchant-#{@merchant_1.id}"
+                expect(page).to have_content('Enabled')
+
+              first(:button, 'Disable').click
+
+              expect(current_path).to eq("/admin/merchants")
+
+              expect(page).to have_content("#{@merchant_1.name}'s account is now disabled'")
+
+              within "#merchant-#{@merchant_1.id}"
+                expect(page).to have_content('Disabled')
+
+              within "#merchant-#{@merchant_2.id}"
+                expect(page).to have_content('Enabled')
+            end
+          end
+        end
       end
     end
   end
