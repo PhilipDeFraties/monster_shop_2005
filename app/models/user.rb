@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   validates_presence_of :password_confirmation, require: true, :on => :create, :on => :update_password
   has_many :orders
+  belongs_to :merchant, optional: true
   validates_presence_of :name,
                         :address,
                         :city,

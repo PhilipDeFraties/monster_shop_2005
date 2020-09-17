@@ -103,6 +103,8 @@ describe 'When I look at the navigation bar' do
         password: '@%)abc123#$.',
         role: 0
       )
+      @bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+
       @merchant_1 = User.create(
         name: 'Bill Gates',
         address: '1000 Microsoft Drive',
@@ -111,6 +113,7 @@ describe 'When I look at the navigation bar' do
         zip: '00123',
         email: 'bill.gates@outlook.com',
         password: '@%)abc123#$.',
+        merchant_id: @bike_shop.id,
         role: 1
       )
       @admin_1 = User.create(
@@ -203,7 +206,7 @@ describe 'When I look at the navigation bar' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin_1)
 
         visit "/admin"
-        expect(page).to have_content("placeholder for admin dashboard US 5")
+        expect(page).to_not have_content("The page you were looking for doesn't exist.")
       end
     end
 

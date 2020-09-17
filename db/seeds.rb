@@ -51,8 +51,8 @@ admin_1 = User.create!(name: 'John Admin',
                     role: 2)
 
 #an order
-user_1.orders.create!(name: "Human Person", address: "Address", city: "City", state: "State", zip: "12345", status: "pending")
+order = user_1.orders.create!(name: "Human Person", address: "Address", city: "City", state: "State", zip: "12345", status: "pending")
 # @order = Order.create!(name: "Human Person", address: "Address", city: "City", state: "State", zip: "12345", status: "pending")
-user_1.orders[0].item_orders.create!(price: 10, quantity: 1, item: pull_toy)
-user_1.orders[0].item_orders.create!(price: 10, quantity: 5, item: dog_bone)
-user_1.orders[0].item_orders.create!(price: 10, quantity: 3, item: tire)
+order.item_orders.create!(price: 10, quantity: 1, item: pull_toy)
+order.item_orders.create!(price: 10, quantity: 5, item: dog_bone)
+order.item_orders.create!(price: 10, quantity: 3, item: tire)

@@ -47,9 +47,24 @@ RSpec.describe 'Cart show' do
       fill_in 'Zip', with: "#{@user_1.zip}"
       click_on "Create Order"
       expect(current_path).to eq("/profile/orders")
+    end
 
+    describe "As a visitor when I click create order on the cart show page" do
+      it "I see a flash message indicating I need to be logged in" do
+        visit "/cart"
+        click_on "Checkout"
+        fill_in 'Name', with: "#{@user_1.name}"
+        fill_in 'Address', with: "#{@user_1.address}"
+        fill_in 'City', with: "#{@user_1.city}"
+        fill_in 'State', with: "#{@user_1.state}"
+        fill_in 'Zip', with: "#{@user_1.zip}"
+        click_on "Create Order"
+        expect(current_path).to eq("/orders")
+        expect(page).to have_content("Must log in before checking out")
+      end
     end
   end
+
 
   describe 'When I havent added items to my cart' do
     it 'There is not a link to checkout' do

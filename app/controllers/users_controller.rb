@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome #{user_params["name"]}, you are now registered and logged in!"
       redirect_to '/profile'
     else
-      flash[:errors] = @user.errors.full_messages
+      flash[:errors] = @user.errors.full_messages.to_sentence
       if @user.errors.details.keys.include?(:email)
         @user.email = ""
       end
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       flash[:success] = "#{current_user.name}, your profile has been updated!"
       redirect_to "/profile"
     else
-      flash[:errors] = current_user.errors.full_messages
+      flash[:errors] = current_user.errors.full_messages.to_sentence
       render :edit
     end
   end
