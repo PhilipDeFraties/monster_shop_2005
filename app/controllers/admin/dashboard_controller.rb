@@ -5,8 +5,4 @@ class Admin::DashboardController < Admin::BaseController
 
   def index
   end
-
-  def merchants_index
-    @merchants = Merchant.all
-  end
 end
