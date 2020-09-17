@@ -52,13 +52,12 @@ Rails.application.routes.draw do
   get "/profile/orders/:id", to: "orders#show"
 
   delete "profile/orders/:id", to: "orders#destroy"
- 
+
   get "/profile", to: "users#show"
   get "/profile/edit", to: "users#edit"
   patch "/profile/edit", to: "users#update"
   patch "/profile/edit_password", to: "users#update_password"
   get '/profile/edit_password', to: "users#edit_password"
-  get "/profile", to: "users#show"
 
   get "/register", to: "users#new"
   post '/users', to: 'users#create'
@@ -66,8 +65,6 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/', to: 'dashboard#show'
     get '/users', to: 'dashboard#index'
+    get '/merchants', to: 'dashboard#merchants_index'
   end
-
-  get "/profile", to: "users#show"
-
 end
