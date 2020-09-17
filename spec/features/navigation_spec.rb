@@ -206,7 +206,7 @@ describe 'When I look at the navigation bar' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin_1)
 
         visit "/admin"
-        expect(page).to have_content("placeholder for admin dashboard US 5")
+        expect(page).to_not have_content("The page you were looking for doesn't exist.")
       end
     end
 
