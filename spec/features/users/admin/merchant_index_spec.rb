@@ -1,10 +1,4 @@
 require 'rails_helper'
-# As an admin
-# When I visit the admin's merchant index page ('/admin/merchants')
-# I see a "disable" button next to any merchants who are not yet disabled
-# When I click on the "disable" button
-# I am returned to the admin's merchant index page where I see that the merchant's account is now disabled
-# And I see a flash message that the merchant's account is now disabled
 
 RSpec.describe "As an admin", type: :feature do
   describe 'When I visit my merchants index page' do
