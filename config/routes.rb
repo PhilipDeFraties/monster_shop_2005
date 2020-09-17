@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   root to: 'application#index'
   get "/", to: "application#index"
 
-
   get "/login", to: "sessions#new"
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
@@ -16,9 +15,9 @@ Rails.application.routes.draw do
   patch "/merchants/:id", to: "merchants#update"
   delete "/merchants/:id", to: "merchants#destroy"
 
-  #this route is for US4 and the merchant dashboard
   namespace :merchant do
     get '/', to: 'dashboard#show'
+    get '/items', to: 'dashboard#index'
   end
 
   get "/items", to: "items#index"
@@ -49,11 +48,13 @@ Rails.application.routes.draw do
 
   get "/profile/orders", to: "orders#index"
   get "/profile/orders/:id", to: "orders#show"
+  delete "profile/orders/:id", to: "orders#destroy"
+
+  get "/profile", to: "users#show"
   get "/profile/edit", to: "users#edit"
   patch "/profile/edit", to: "users#update"
   patch "/profile/edit_password", to: "users#update_password"
   get '/profile/edit_password', to: "users#edit_password"
-  get "/profile", to: "users#show"
 
   get "/register", to: "users#new"
   post '/users', to: 'users#create'
@@ -61,8 +62,8 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/', to: 'dashboard#show'
     get '/users', to: 'dashboard#index'
+    get '/merchants', to: 'merchant#index'
+    patch '/merchants/:merchant_id', to: 'merchant#update'
+    get '/merchants/:merchant_id', to: 'merchant#show'
   end
-
-  get "/profile", to: "users#show"
-
 end
