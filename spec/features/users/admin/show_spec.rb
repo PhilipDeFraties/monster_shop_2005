@@ -53,10 +53,9 @@ RSpec.describe 'admin view of merchant show page' do
       visit "/merchants"
       expect(page).to have_link("Meg's Bike Shop")
       click_on "Meg's Bike Shop"
-      #save_and_open_page
       expect(current_path).to eq("/admin/merchants/#{@bike_shop.id}")
-
     end
+
     it "I see the name and full address of the merchant" do
       visit '/login'
 
@@ -64,55 +63,56 @@ RSpec.describe 'admin view of merchant show page' do
       fill_in :password, with: @admin_1.password
       click_on "Log In"
 
-      visit "/admin/merchants/6"
-
+      visit "/admin/merchants/#{@merchant_1.merchant_id}"
       within "#merchant-address" do
-        expect(page).to have_content("#{@merchant_1.address}")
-        expect(page).to have_content("#{@merchant_1.city}")
-        expect(page).to have_content("#{@merchant_1.state}")
-        expect(page).to have_content("#{@merchant_1.zip}")
-        expect(page).to have_content("#{@merchant_1.email}")
+        expect(page).to have_content("#{@bike_shop.name}")
+        expect(page).to have_content("#{@bike_shop.address}")
+        expect(page).to have_content("#{@bike_shop.city}")
+        expect(page).to have_content("#{@bike_shop.state}")
+        expect(page).to have_content("#{@bike_shop.zip}")
       end
     end
 
-    # it "has a link to any orders that contain items that the merchant sells" do
-    #   visit '/login'
-    #
-    #   fill_in :email, with: @admin_1.email
-    #   fill_in :password, with: @admin_1.password
-    #   click_on "Log In"
-    #
-    #   visit "/merchant"
-    #
-    #   expect(page).to have_link("Order ID: #{@order.id}")
-    #
-    #   @bike_shop.items.each do |item|
-    #     expect(page).to have_content(@order.id)
-    #     expect(page).to have_content(@order.created_at.strftime("%m/%d/%y"))
-    #     expect(page).to have_content(@order.items.count)
-    #     expect(page).to have_content(item.name)
-    #   end
-    #   expect(page).to have_content("$3,000")
-    # end
+    it "has a link to any orders that contain items that the merchant sells" do
+      visit '/login'
 
-    # it "has a link to a merchant employee index page containing all items" do
-    #   visit '/login'
-    #
-    #   fill_in :email, with: @admin_1.email
-    #   fill_in :password, with: @admin_1.password
-    #   click_on "Log In"
-    #
-    #   visit "/merchant"
-    #   save_and_open_page
-    #   expect(page).to have_link("View Items")
-    #   click_on "View Items"
-    #
-    #   expect(current_path).to eq("/merchant/items")
-    #
-    #   expect(page).to have_content(@tire.name)
-    #   expect(page).to have_content(@other.name)
-    #
-    # end
+      fill_in :email, with: @admin_1.email
+      fill_in :password, with: @admin_1.password
+      click_on "Log In"
+
+      visit "/admin/merchants/#{@bike_shop.id}"
+
+      expect(page).to have_link("Order ID: #{@order.id}")
+      @bike_shop.items.each do |item|
+        expect(page).to have_content(@order.id)
+        expect(page).to have_content(@order.created_at.strftime("%m/%d/%y"))
+        expect(page).to have_content(@order.items.count)
+        expect(page).to have_content(item.name)
+      end
+      expect(page).to have_content("$3,000")
+    end
+
+    it "has a link to a merchant employee index page containing all items" do
+      visit '/login'
+
+      fill_in :email, with: @admin_1.email
+      fill_in :password, with: @admin_1.password
+      click_on "Log In"
+
+      visit "/admin/merchants/#{@bike_shop.id}"
+
+      expect(page).to have_link("View Items")
+
+      # US 37 specifies that the page should look identical to
+      # the merchant page. As a result this link it present,
+      #however I did not crete the route as it is outside the scope
+      #of the user story
+      # expect(current_path).to eq("/merchant/items")
+      #
+      # expect(page).to have_content(@tire.name)
+      # expect(page).to have_content(@other.name)
+
+    end
 
   end
 end
