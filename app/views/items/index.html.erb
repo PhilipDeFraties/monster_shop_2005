@@ -28,15 +28,17 @@
 <section id="items-statistics">
   <section id="most-popular-items">
     <ol>
+      <h3>Most Popular Items by Quantity:</h3>
       <% @most_popular.each do |item| %>
-        <li><%= item.name %> <%= item.quantity_sum %></li>
+        <li><%= item.name %>: <%= item.quantity_sum %></li>
       <% end %>
     </ol>
   </section>
   <section id="least-popular-items">
     <ol>
+      <h3>Least Popular Items by Quantity:</h3>
       <% @least_popular.each do |item| %>
-        <li><%= item.name %> <%= item.quantity_sum %></li>
+        <li><%= item.name %>: <%= item.quantity_sum %></li>
       <% end %>
     </ol>
   </section>
