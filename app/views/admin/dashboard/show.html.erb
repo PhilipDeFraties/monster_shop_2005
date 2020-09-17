@@ -1,1 +1,21 @@
 <p> placeholder for admin dashboard US 5 </p>
+
+<section id="admin-orders-overview">
+  <h1 align = "center">Orders Overview</h1>
+  <table>
+    <tr>
+      <th>User</th>
+      <th>Order ID</th>
+      <th>Date Created</th>
+    </tr>
+    <% unless @orders.empty? %>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= link_to User.find(order.user_id).name %></td>
+          <td><%= order.id %></td>
+          <td><%= order.created_at.strftime("%m/%d/%y") %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+</section>
