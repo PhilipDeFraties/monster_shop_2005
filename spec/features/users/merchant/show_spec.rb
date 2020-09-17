@@ -46,11 +46,10 @@ RSpec.describe 'merchant-employee show page', type: :feature do
       expect(page).to have_content("Welcome, #{@merchant_1.name}, you are logged in!")
 
       within "#merchant-address" do
-        expect(page).to have_content("#{@merchant_1.address}")
-        expect(page).to have_content("#{@merchant_1.city}")
-        expect(page).to have_content("#{@merchant_1.state}")
-        expect(page).to have_content("#{@merchant_1.zip}")
-        expect(page).to have_content("#{@merchant_1.email}")
+        expect(page).to have_content("#{@bike_shop.address}")
+        expect(page).to have_content("#{@bike_shop.city}")
+        expect(page).to have_content("#{@bike_shop.state}")
+        expect(page).to have_content("#{@bike_shop.zip}")
       end
     end
 

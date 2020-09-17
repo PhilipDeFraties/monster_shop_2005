@@ -15,11 +15,11 @@
 
 
 <section id="merchant-address">
-  <h3><%= current_user.name %> Address:</h3>
-  <%= current_user.address %><br>
-  <%= current_user.city %><br>
-  <%= current_user.state %><br>
-  <%= current_user.zip %><br>
-  <%= current_user.email %><br>
+  <h3><%= @merchant.name %> Address:</h3>
+  <%= @merchant.address %><br>
+  <%= @merchant.city %><br>
+  <%= @merchant.state %><br>
+  <%= @merchant.zip %><br>
+
 </section>
 <p><%= link_to "View Items", "/merchant/items" %></p>
