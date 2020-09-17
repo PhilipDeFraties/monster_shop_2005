@@ -24,7 +24,7 @@ RSpec.describe 'Cart show' do
       click_on "Add To Cart"
       @items_in_cart = [@paper,@tire,@pencil]
     end
-
+    
     it 'Theres a link to checkout' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
       visit "/cart"

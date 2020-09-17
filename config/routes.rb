@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   patch "/profile/edit_password", to: "users#update_password"
   get '/profile/edit_password', to: "users#edit_password"
 
+
   get "/register", to: "users#new"
   post '/users', to: 'users#create'
 
@@ -70,4 +71,7 @@ Rails.application.routes.draw do
     patch '/merchants/:merchant_id', to: 'merchant#update'
     get '/merchants/:merchant_id', to: 'merchant#show'
   end
+
+  get "/profile", to: "users#show"
+
 end
