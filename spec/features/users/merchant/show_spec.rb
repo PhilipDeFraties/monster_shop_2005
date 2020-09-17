@@ -72,10 +72,23 @@ RSpec.describe 'merchant-employee show page', type: :feature do
         expect(page).to have_content(item.name)
       end
       expect(page).to have_content("$3,000")
+    end
 
+    it "has a link to a merchant employee index page containing all items" do
+      visit '/login'
 
+      fill_in :email, with: @merchant_1.email
+      fill_in :password, with: @merchant_1.password
+      click_on "Log In"
 
+      visit "/merchant"
+      expect(page).to have_link("View Items")
+      click_on "View Items"
 
+      expect(current_path).to eq("/merchant/items")
+
+      expect(page).to have_content(@tire.name)
+      expect(page).to have_content(@other.name)
     end
   end
 end
