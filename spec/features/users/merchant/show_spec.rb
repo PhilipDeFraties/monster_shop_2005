@@ -89,8 +89,6 @@ RSpec.describe 'merchant-employee show page', type: :feature do
 
       expect(page).to have_content(@tire.name)
       expect(page).to have_content(@other.name)
-
     end
-
   end
 end
