@@ -1,5 +1,5 @@
 <%current_user.orders.each do |order|%>
-<ul><%= link_to "Confirmation number: #{order.id}", "/profile/orders/#{order.id}" %></ul>
+<ul><%= link_to "Confirmation number: #{order.id}", "/orders/#{order.id}" %></ul>
 <ul>Total: <%= number_to_currency(order.grandtotal) %></ul>
 <ul>Date Ordered: <%= order.created_at.strftime("%m/%d/%y") %></ul>
 <ul>Last Updated On: <%= order.updated_at.strftime("%m/%d/%y") %></ul>

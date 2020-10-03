@@ -30,7 +30,7 @@ RSpec.describe 'Profile Orders' do
     it "I can click See Order and go to that order show page" do
       expect(page).to have_link("Confirmation number: #{@user_1.orders.first.id}")
       click_on "Confirmation number: #{@user_1.orders.first.id}"
-      expect(current_path).to eq("/profile/orders/#{@user_1.orders.first.id}")
+      expect(current_path).to eq("/orders/#{@user_1.orders.first.id}")
     end
 
     it "has the following information" do
@@ -50,13 +50,13 @@ RSpec.describe 'Profile Orders' do
     end
 
     it "I see a button to cancel the order" do
-      visit("/profile/orders/#{@user_1.orders.first.id}")
+      visit("/orders/#{@user_1.orders.first.id}")
       expect(page).to have_button("Cancel Order")
 
     end
 
     it "When I click the cancel button, each row is given a status of unfulfilled" do
-      visit("/profile/orders/#{@user_1.orders.first.id}")
+      visit("/orders/#{@user_1.orders.first.id}")
       within ".item-#{@user_1.orders.first.item_orders.first.item_id}-order-status-cell" do
         expect(page).to have_content("processing")
       end
@@ -66,7 +66,7 @@ RSpec.describe 'Profile Orders' do
 
       click_button("Cancel Order")
 
-      visit("/profile/orders/#{@user_1.orders.first.id}")
+      visit("/orders/#{@user_1.orders.first.id}")
       within ".item-#{@user_1.orders.first.item_orders.first.item_id}-order-status-cell" do
         expect(page).to have_content("unfulfilled")
       end
@@ -76,14 +76,14 @@ RSpec.describe 'Profile Orders' do
     end
 
     it "The order itself is given a status of cancelled" do
-      visit("/profile/orders/#{@user_1.orders.first.id}")
+      visit("/orders/#{@user_1.orders.first.id}")
       click_button("Cancel Order")
       expect(page).to have_content("Your order has been cancelled!")
 
     end
 
     it "Any item quantities in the order have their quantities returned to their respective values" do
-      visit("/profile/orders/#{@user_1.orders.first.id}")
+      visit("/orders/#{@user_1.orders.first.id}")
       expect(@user_1.orders.first.item_orders.first.item.inventory).to eq(@mike.items.find(@user_1.orders.first.item_orders.first.item.id).inventory)
 
       click_button("Cancel Order")
@@ -92,16 +92,16 @@ RSpec.describe 'Profile Orders' do
     end
 
     it "I am returned to my profile page, I see a flash message telling me the order is now cancelled, and see the order status change" do
-      visit("/profile/orders/#{@user_1.orders.first.id}")
+      visit("/orders/#{@user_1.orders.first.id}")
       click_button("Cancel Order")
-      expect(current_path).to eq("/profile/orders")
+      expect(current_path).to eq("/orders")
       expect(page).to have_content("Your order has been cancelled!")
     end
 
     it "I don't see a cancel button if an order has already been cancelled" do
-      visit("/profile/orders/#{@user_1.orders.first.id}")
+      visit("/orders/#{@user_1.orders.first.id}")
       click_button("Cancel Order")
-      visit("/profile/orders/#{@user_1.orders.first.id}")
+      visit("/orders/#{@user_1.orders.first.id}")
       expect(page).to_not have_link("Cancel Order")
     end
   end

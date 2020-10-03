@@ -82,7 +82,7 @@ RSpec.describe 'admin view of merchant show page' do
       visit "/merchants"
       expect(page).to have_link("Meg's Bike Shop")
       click_on "Meg's Bike Shop"
-      expect(current_path).to eq("/admin/merchants/#{@bike_shop.id}")
+      expect(current_path).to eq("/admin/merchant/#{@bike_shop.id}")
     end
 
     it "I see the name and full address of the merchant" do
@@ -92,7 +92,7 @@ RSpec.describe 'admin view of merchant show page' do
       fill_in :password, with: @admin_1.password
       click_on "Log In"
 
-      visit "/admin/merchants/#{@merchant_1.merchant_id}"
+      visit "/admin/merchant/#{@merchant_1.merchant_id}"
       within "#merchant-address" do
         expect(page).to have_content("#{@bike_shop.name}")
         expect(page).to have_content("#{@bike_shop.address}")
@@ -109,7 +109,7 @@ RSpec.describe 'admin view of merchant show page' do
       fill_in :password, with: @admin_1.password
       click_on "Log In"
 
-      visit "/admin/merchants/#{@bike_shop.id}"
+      visit "/admin/merchant/#{@bike_shop.id}"
 
       expect(page).to have_link("Order ID: #{@order.id}")
       @bike_shop.items.each do |item|
@@ -128,7 +128,7 @@ RSpec.describe 'admin view of merchant show page' do
       fill_in :password, with: @admin_1.password
       click_on "Log In"
 
-      visit "/admin/merchants/#{@bike_shop.id}"
+      visit "/admin/merchant/#{@bike_shop.id}"
 
       expect(page).to have_link("View Items")
 

@@ -67,7 +67,7 @@ RSpec.describe 'user show page', type: :feature do
         expect(page).to have_link('My Orders')
 
         click_on "My Orders"
-        expect(current_path).to eq("/profile/orders")
+        expect(current_path).to eq("/orders")
       end
 
       it "when I do not have orders I do not see a link My Orders" do

@@ -64,6 +64,6 @@
 <section id="datecreated">
   <p>Order Placed: <%= @order.created_at.localtime.strftime("%B %d, %Y at %l:%M %p") %></p>
   <% if @order.status != 'cancelled' %>
-    <p><%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :delete %>
+    <p><%= button_to "Cancel Order", "/orders/#{@order.id}", method: :delete %>
   <% end %>
 </section>

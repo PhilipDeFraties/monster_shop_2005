@@ -26,6 +26,7 @@ slinky = bike_shop.items.create(name: "Slinky", description: "They'll love it!",
 foot = bike_shop.items.create(name: "foor", description: "Its a foot", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:true, inventory: 21)
 paper = dog_shop.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
 pencil = dog_shop.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+
 # users
 user_1 = User.create!(name: 'Jeff Bezos',
                     address: '123 Main Street',
@@ -59,10 +60,12 @@ order_1 = Order.create!(name: "Phil", address: "5 st", city: "Lakewood", state: 
 order_2 = Order.create!(name: "Jade", address: "5 st", city: "Lakewood", state: "CO", zip: 55555)
 order_3 = Order.create!(name: "Endo", address: "5 st", city: "Lakewood", state: "CO", zip: 55555)
 order_4 = Order.create!(name: "Nooch", address: "5 st", city: "Lakewood", state: "CO", zip: 55555)
+
 item_order = ItemOrder.create!(order: order_1, item: frisbee, price: 21, quantity: 1)
 item_order2 = ItemOrder.create!(order: order_2, item: slinky, price: 21, quantity: 2)
 item_order3 = ItemOrder.create!(order: order_3, item: foot, price: 21, quantity: 3)
 item_order4 = ItemOrder.create!(order: order_4, item: paper, price: 21, quantity: 4)
+
 item_order5 = ItemOrder.create!(order: order_1, item: slinky, price: 21, quantity: 2)
 item_order6 = ItemOrder.create!(order: order_2, item: foot, price: 21, quantity: 3)
 item_order7 = ItemOrder.create!(order: order_3, item: paper, price: 21, quantity: 4)

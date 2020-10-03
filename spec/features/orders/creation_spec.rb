@@ -58,7 +58,7 @@ RSpec.describe("Order Creation") do
 
       new_order = Order.last
 
-      expect(current_path).to eq("/profile/orders")
+      expect(current_path).to eq("/orders")
     end
 
     it 'i cant create order if info not filled out' do
