@@ -46,7 +46,7 @@ RSpec.describe 'Cart show' do
       fill_in 'State', with: "#{@user_1.state}"
       fill_in 'Zip', with: "#{@user_1.zip}"
       click_on "Create Order"
-      expect(current_path).to eq("/profile/orders")
+      expect(current_path).to eq("/orders")
     end
 
     describe "As a visitor when I click create order on the cart show page" do

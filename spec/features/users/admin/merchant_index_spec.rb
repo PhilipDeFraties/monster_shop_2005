@@ -24,7 +24,7 @@ RSpec.describe "As an admin", type: :feature do
       fill_in :password, with: @admin_1.password
       click_on "Log In"
 
-      visit '/admin/merchants'
+      visit '/admin/merchant'
 
       expect(page).to have_content(@merchant_1.name)
       expect(page).to have_content(@merchant_2.name)
@@ -38,7 +38,7 @@ RSpec.describe "As an admin", type: :feature do
       fill_in :password, with: @admin_1.password
       click_on "Log In"
 
-      visit '/admin/merchants'
+      visit '/admin/merchant'
 
       Merchant.all.each do |merchant|
         within "#merchant-#{merchant.id}"
@@ -59,13 +59,13 @@ RSpec.describe "As an admin", type: :feature do
               fill_in :password, with: @admin_1.password
               click_on "Log In"
 
-              visit '/admin/merchants'
+              visit '/admin/merchant'
               within "#merchant-#{@merchant_1.id}"
                 expect(page).to have_content('Enabled')
 
               first(:button, 'Disable').click
 
-              expect(current_path).to eq("/admin/merchants")
+              expect(current_path).to eq("/admin/merchant")
 
               expect(page).to have_content("#{@merchant_1.name}'s account is now disabled'")
 

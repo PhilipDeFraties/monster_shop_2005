@@ -1,7 +1,7 @@
 <h1>Hello, <%= current_user.name %>!</h1>
 <article id="user-<%= current_user.id %>" class='user profile card'>
   <% if current_user.orders.count > 0 %>
-    <center><h2><%= link_to "My Orders", "/profile/orders" %></h2></center>
+    <center><h2><%= link_to "My Orders", "/orders" %></h2></center>
   <% end %>
   <ul>
     <li>Address: <%= current_user.address %></li>

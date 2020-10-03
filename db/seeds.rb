@@ -21,7 +21,7 @@ tire = bike_shop.items.create!(name: "Gatorskins", description: "They'll never p
 #dog_shop items
 pull_toy = dog_shop.items.create!(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 dog_bone = dog_shop.items.create!(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
-frisbee = bike_shop.items.create(name: "Frisbee", description: "They'll love it!", price: 21, image: "https://assets.fivebelow.com/prod-hts/spree/images/1729088/main_image/116672-00.jpgg", active?:true, inventory: 999)
+frisbee = bike_shop.items.create(name: "Frisbee", description: "They'll love it!", price: 21, image: "https://s3.amazonaws.com/5mt.trinityhbg.com/2019/01/frisbee4.jpg", active?:true, inventory: 999)
 slinky = bike_shop.items.create(name: "Slinky", description: "They'll love it!", price: 21, image: "https://i.ebayimg.com/images/g/KB4AAOSwo-5eTjJK/s-l640.jpg", active?:true, inventory: 21)
 foot = bike_shop.items.create(name: "foot", description: "Its a foot", price: 21, image: "https://images-na.ssl-images-amazon.com/images/I/31YmQX5KRWL._AC_SY450_.jpg", active?:true, inventory: 500)
 paper = dog_shop.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)

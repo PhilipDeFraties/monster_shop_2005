@@ -20,7 +20,7 @@ class OrdersController < ApplicationController
          cart.item_orders_create(cart, order)
          session.delete(:cart)
          flash[:success] = "Your order has been created!"
-         redirect_to "/profile/orders"
+         redirect_to "/orders"
        else
          flash[:notice] = "Please complete address form to create an order."
          render :new
@@ -37,7 +37,7 @@ class OrdersController < ApplicationController
     else
       flash[:error] = "Unable to cancel this order!"
     end
-    redirect_to "/profile/orders"
+    redirect_to "/orders"
   end
 
   private

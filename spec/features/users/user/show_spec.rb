@@ -48,7 +48,7 @@ RSpec.describe 'user show page', type: :feature do
           item_order_2 = create(:item_order, quantity: 3, order: order)
           item_order_3 = create(:item_order, quantity: 2, order: order)
           item_order_4 = create(:item_order, quantity: 1, order: order)
-          
+
           visit '/profile'
 
           expect(page).to have_link('My Orders')
@@ -81,7 +81,7 @@ RSpec.describe 'user show page', type: :feature do
         expect(page).to have_link('My Orders')
 
         click_on "My Orders"
-        expect(current_path).to eq("/profile/orders")
+        expect(current_path).to eq("/orders")
       end
 
       it "when I do not have orders I do not see a link My Orders" do
